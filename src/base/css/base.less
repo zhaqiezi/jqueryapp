@@ -1,0 +1,43 @@
+@import "../../_config/theme";
+@import "../../_config/mixins";
+
+@font-face {
+  font-family: "Source Code";
+  src: url('img/sourcecode.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+  .font-family();
+  font-size: @size11;
+  line-height: 1.3;
+  background-color: @back;
+  color: @font;
+}
+
+
+@import (less) "animate.css";
+@import (less) "iconfont.css";
+@import "atom";
+
+@import "ui";
+@import "ui/router";
+
+
+
+

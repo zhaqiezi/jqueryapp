@@ -1,0 +1,39 @@
+.home-header {
+  position: fixed;
+  z-index: 11;
+  width: 100%;
+  height: @home-header-height;
+  line-height: @home-header-height;
+  > .wrapper {
+    .cb();
+    > .logo {
+      width: @home-menu-width;
+      float: left;
+      text-align: center;
+      > .logoname {
+        font-size: @home-menu-width/6;
+        @media (min-width: 1024px) {
+          font-size: @size18;
+        }
+      }
+    }
+    > .menu {
+      padding-left: @home-header-height*2;
+      float: left;
+      .a {
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+    }
+    > .user {
+      float: right;
+      padding-right: @space;
+      > .logout {
+        display: none;
+      }
+    }
+  }
+
+}

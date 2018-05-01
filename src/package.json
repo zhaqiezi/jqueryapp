@@ -1,0 +1,38 @@
+{
+  "name": "jqueryapp",
+  "version": "v0.0.1",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start": "gulp develop",
+    "server": "anywhere -h localhost -d ../dist -p 8001 -f /index.html"
+  },
+  "environment": {
+    "version": "v0.0.1",
+    "develop": {
+      "mark": "开发环境",
+      "host": "http://localhost:8001"
+    },
+    "publish-product": {
+      "mark": "生产环境",
+      "host": "http://jqueryapp.com"
+    }
+  },
+  "author": "Arsen Huang",
+  "help": "https://github.com/pageborn/jqueryapp",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.1.1",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-less": "^3.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^1.0.3",
+    "rev-hash": "^2.0.0",
+    "vinyl-file": "^3.0.0"
+  }
+}

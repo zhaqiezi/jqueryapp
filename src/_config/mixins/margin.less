@@ -1,0 +1,22 @@
+.mN(@start, @end, @interval) when (@start <= @end){
+    .m@{start} { margin:  @start * 1px; }
+    .m@{start}-t { margin-top:  @start * 1px; }
+    .m@{start}-r { margin-right:  @start * 1px; }
+    .m@{start}-b { margin-bottom:  @start * 1px; }
+    .m@{start}-l { margin-left:  @start * 1px; }
+    .m@{start}-tb { margin-top:  @start * 1px; margin-bottom:  @start * 1px; }
+    .m@{start}-tl { margin-top:  @start * 1px; margin-left:  @start * 1px; }
+    .m@{start}-tr { margin-top:  @start * 1px; margin-right:  @start * 1px; }
+    .m@{start}-rb { margin-right:  @start * 1px; margin-bottom:  @start * 1px; }
+    .m@{start}-rl { margin-right:  @start * 1px; margin-left:  @start * 1px; }
+    .m@{start}-bl { margin-bottom:  @start * 1px; margin-left:  @start * 1px; }
+    .m@{start}-trb { margin-top:  @start * 1px; margin-bottom:  @start * 1px; margin-right:  @start * 1px; }
+    .m@{start}-tbl { margin-top:  @start * 1px; margin-bottom:  @start * 1px; margin-left:  @start * 1px; }
+    .m@{start}-trl { margin-right:  @start * 1px; margin-left:  @start * 1px; margin-top:  @start * 1px; }
+    .m@{start}-rbl { margin-right:  @start * 1px; margin-left:  @start * 1px; margin-bottom:  @start * 1px; }
+    .mN(@start+@interval, @end, @interval);
+}
+
+.mN-N(@top,@left){
+    .m@{top}-@{left} { margin: unit(@top,px) unit(@left,px); }
+}
