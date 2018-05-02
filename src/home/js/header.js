@@ -1,7 +1,7 @@
 ui.module('home').add('header', {
     i18n: ui.i18n('zh', {
         'home-header-logoname': 'jQueryApp',
-        'home-header-framework': '框架目的',
+        'home-header-plan': '开发计划',
         'home-header-spa': '异步SPA',
         'home-header-css': '组件CSS',
         'home-header-js': '模块JS',
@@ -44,7 +44,7 @@ ui.module('home').add('header', {
                 class: 'a',
                 href: '/about/framework'
             }).data({
-                i18n: 'home-header-framework'
+                i18n: 'home-header-plan'
             }),
             $('<a>', {
                 class: 'a',

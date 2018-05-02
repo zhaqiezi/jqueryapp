@@ -17,6 +17,7 @@ const moduleDist = path.join(__dirname, '../../dist');
 const taskJsSrc = [
     path.join(__dirname, 'js/' + moduleName + '.js'),
     path.join(__dirname, 'js/framework.js'),
+    path.join(__dirname, 'js/tasklist.js'),
 
 ];
 exports.enable = true;

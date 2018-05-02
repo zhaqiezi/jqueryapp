@@ -67,7 +67,7 @@ ui.router = $.extend(function () {
         var params = ui.array.del(pathname.split('/'), '');
 
         s.location = {
-            referer: ui.json.clone(window.location, {title: document.title}),
+            referer: ui.json.clone(window.location, ['href', 'pathname', 'search'], {title: document.title}),
             params: params,
             query: ui.string.getParam(search),
             path: pathname + search,

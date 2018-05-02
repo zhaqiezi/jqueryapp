@@ -3,12 +3,34 @@ ui.json = $.extend(function () {
     // 功能待定
 }, {
     // 深度拷贝
-    // 需要有指定字段的拷贝功能
-    clone: function (obj, json) {
+    clone: function (obj, arr, json) {
         if (ui.isArray(obj)) {
-            return ui.array.clone(obj, json);
+            return ui.array.clone(obj, arr);
+        }
+
+        if (ui.isArray(arr)) {
+            var rt = {};
+            for (var key in obj) {
+                if (arr.includes(key)) {
+                    var val = obj[key];
+                    if (ui.isObject(val)) {
+                        rt[key] = ui.json.clone(val);
+                    } else {
+                        rt[key] = val;
+                    }
+                }
+            }
+
+            if (ui.isJson(json)) {
+                $.extend(rt, json);
+            }
+            return rt;
+
+        } else if (ui.isJson(arr)) {
+            json = arr;
         }
         return $.extend(true, obj, json);
+
     },
     hasKey: function (obj, key) {
         if (hasOwnProperty.call(obj, key)) {
