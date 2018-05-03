@@ -1,10 +1,14 @@
 ui.router = $.extend(function () {
     var self = this.router;
-
+    return self.add.apply(null, arguments);
 }, {
+    i18n: ui.i18n('zh', {
+        'ui-router-page404': '页面不存在',
+        'ui-router-pjaxfail': '抱歉，相关组件加载失败，请点击确定重新加载！',
+    }),
     state: {
         location: {},
-        isRunning: false,
+        isProgress: false,
         timeoutId: '',
         startCallbacks: $.Callbacks('unique stopOnFalse'),
         endCallbacks: $.Callbacks('unique'),
@@ -21,11 +25,14 @@ ui.router = $.extend(function () {
         var c = this.config;
 
         c.$element = $('<div>', {class: "ui-router"}).html([
-            c.$wrapper = $('<div>', {class: "wrapper"}).html([
-                c.$progress = $('<div>', {class: "progress"}),
+            c.$progress = $('<div>', {class: "progress"}).html([
+                c.$bar = $('<div>', {class: "bar"}),
                 c.$loading = $('<div>', {class: "loading"}).html([
-                    c.$icon = $('<i>', {class: 'icon'})
+                    $('<i>', {class: 'icon'})
                 ]),
+            ]),
+            c.$page404 = $('<div>', {class: "page404"}).html([
+                $('<div>', {class: 'title'}).data('i18n', 'ui-router-page404')
             ]),
         ]);
         $('body').append(c.$element);
@@ -46,96 +53,53 @@ ui.router = $.extend(function () {
         // 监听window.onpopstate事件
         window.onpopstate = function () {
             var state = window.history.state;
-            var pathname = state ? state.pathname : window.location.pathname;
-            var search = state ? state.search : window.location.search;
-            if (self.allow(pathname, search)) {
-                self.pjax($.extend({}, s.location), false);
+            if (self.legal(state.href)) {
+                self.pjax(false);
             }
         };
 
     },
-
-    allow: function (pathname, search) {
+    legal: function (href) {
         var s = this.state;
 
         // 预留有些情况要return false;
         // 绝对路径的链接跳过
-        if (pathname.indexOf('://') != -1) {
+        if (/(^\w)*?\:\/\//.test(href)) {
             return false;
         }
 
-        var params = ui.array.del(pathname.split('/'), '');
+        var pathname = href;
+        var search = '';
+
+        if (href.indexOf('?') != -1) {
+            pathname = href.substr(0, href.lastIndexOf('?'));
+            search = href.substr(href.lastIndexOf('?'));
+        }
 
         s.location = {
             referer: ui.json.clone(window.location, ['href', 'pathname', 'search'], {title: document.title}),
-            params: params,
-            query: ui.string.getParam(search),
-            path: pathname + search,
+            href: href,
             pathname: pathname,
             search: search,
-            parent: pathname.substr(0, pathname.lastIndexOf('/')),
-            module: params[0] || '',
-            getPath: function (level) {
-                return '/' + this.params.slice(0, level).join('/')
-            },
+            query: ui.string.getParam(search),
+            dirname: ui.array.del(pathname.split('/'), ''),
         }
+
         return true;
     },
 
-    pushState: function (location, push) {
-        var i18n = this.checkStateExist(location);
-        var title = '';
-
-        if (!i18n) {
-            title = ui.i18n.getValue('home-error');
-            home.error.page('page -> ' + location.path);
-        } else {
-            title = ui.i18n.getValue(i18n);
-            home.error.none();
-        }
-
-        document.title = title;
-        if (push !== false) {
-            window.history.pushState({
-                path: location.path,
-                pathname: location.pathname,
-                search: location.search,
-                title: title
-            }, title, location.path);
-        }
-    },
-    checkStateExist: function (location) {
-        var c = this.config;
-        var i18n = '';
-        c.state.forEach(function (json) {
-            var rt = false;
-            if (ui.isRegExp(json.path)) {
-                if (json.path.test(location.pathname)) {
-                    rt = true;
-                }
-            } else if (json.path == location.pathname) {
-                rt = true;
-            }
-
-            if (rt) {
-                i18n = json.i18n;
-            }
-        });
-        return i18n;
-    },
-
-    pjax: function (location, push) {
+    pjax: function (save) {
         var s = this.state;
         var self = this;
-        var module = location.module;
 
-        if (!module) {
-            location.path = '/';
+        var location = ui.json.clone(s.location);
+
+        if (location.pathname === '/') {
             self.pjaxSuccess(location);
             return;
         }
 
-        if (s.isRunning) {
+        if (s.isProgress) {
             clearTimeout(s.timeoutId);
             s.timeoutId = setTimeout(function () {
                 self.pjaxFail(location);
@@ -143,38 +107,42 @@ ui.router = $.extend(function () {
             return false;
         }
 
-        if (ui.require.isDone(module)) {
-            window[module].init();
-            this.pjaxSuccess(location, push);
+        var module = location.dirname[0];
+
+        if (!ui.require.has(name)) {
+            self.setState('error');
+            console.error('module is not exist: ' + module);
             return false;
         }
 
-        if (!ui.require.has(module)) {
-            home.error.page('module -> ' + module);
+        if (ui.require.isDone(module)) {
+            this.pjaxSuccess(location, save);
             return false;
         }
 
         this.pjaxStart(location);
+
         ui.require(module, function () {
             window[module].init();
             self.pjaxSuccess(location);
-
         }, this.pjaxProgress.bind(this));
+
     },
-    pjaxStart: function () {
+    pjaxStart: function (location) {
         var s = this.state;
         var c = this.config;
-        c.$element.fadeIn();
-        s.isRunning = true;
-        if (this.startCallbacks) {
-            this.startCallbacks.fire();
+        var smooth = this.startCallbacks.fire(location);
+
+        if (smooth) {
+            self.setState('progress');
+            s.isProgress = true;
         }
     },
     pjaxProgress: function (done, total) {
         var c = this.config;
         if (total) {
             var percent = (done / total) * 100 + '%';
-            c.$progress.stop().animate({
+            c.$bar.stop().animate({
                 'width': percent
             }, {
                 duration: 300,
@@ -186,37 +154,81 @@ ui.router = $.extend(function () {
             }, 'swing');
         }
     },
-    pjaxSuccess: function (location, push) {
+    pjaxSuccess: function (location, save) {
         var s = this.state;
-        s.isRunning = false;
+        s.isProgress = false;
 
-        this.pushState(location, push);
+        this.pushState(location, save);
 
         clearTimeout(s.timeoutId);
         if (this.endCallbacks) {
             this.endCallbacks.fire(location);
         }
     },
-    pjaxFail: function (location) {
-        console.error('pjaxFail');
-        console.error(location);
-        ui.dialog.confirm(ui.i18n.getValue('system-pjax-error'), function () {
+    pjaxFail: function () {
+        ui.dialog.confirm(ui.i18n('ui-router-pjaxfail'), function () {
             window.location.reload();
         })
+    },
+    pushState: function (location, save) {
+
+        var title = this.checkExist(location);
+
+        if (title === false) {
+            title = ui.i18n('ui-router-page404');
+            self.setState('404');
+            console.error('url is not exist: ' + location.href);
+        } else {
+            self.setState('normal');
+        }
+
+        document.title = title;
+
+        if (save !== false) {
+            window.history.pushState(ui.json.clone(s.location, ['href', 'pathname', 'search'], {title: title}), title, s.location.href);
+        }
+    },
+    checkExist: function (location) {
+        var c = this.config;
+        var title = false;
+
+        c.router.forEach(function (json) {
+            var rt = false;
+            if (ui.isRegExp(json.path)) {
+                if (json.path.test(location.href)) {
+                    rt = true;
+                }
+            } else if (json.path === location.href) {
+                rt = true;
+            }
+
+            if (rt) {
+                if (json.i18n) {
+                    title = ui.i18n(json.title);
+                } else {
+                    title = json.title;
+                }
+            }
+        });
+
+        return title;
+    },
+    setState: function (state) {
+        var c = this.config;
+        c.$element.attr('state', state);
     },
 }, {
     add: function (router) {
         var c = this.config;
-
-        // 这里需要处理下
 
         c.router = c.router.concat(router);
     },
     refresh: function () {
         var s = this.state;
 
-        if (this.allow(window.location.pathname, window.location.search)) {
-            this.pjax(ui.json.clone(s.location));
+        var url = window.location.pathname + window.location.search;
+        if (this.legal(url)) {
+            this.pjax();
         }
     },
     rewrite: function (path) {
@@ -229,7 +241,7 @@ ui.router = $.extend(function () {
         if (s.location.path == path) {
             return true;
         }
-        if (this.allow(path)) {
+        if (this.legal(path)) {
             this.pjax($.extend({}, s.location));
             // 成功进入pjax
             return true;
@@ -243,5 +255,15 @@ ui.router = $.extend(function () {
     addEnd: function (fn) {
         this.endCallbacks.add(fn);
     },
+    getPath: function (location, level) {
+        var pathname = '/';
+        if (!ui.isNull(level)) {
+            pathname += location.params.slice(0, level).join('/');
+        } else {
+            pathname += location.params.join('/');
+        }
+        return pathname;
+    },
+
 });
 

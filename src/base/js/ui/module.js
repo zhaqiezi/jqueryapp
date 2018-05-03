@@ -5,7 +5,8 @@ ui.module = $.extend(function (name, args) {
     }
     return self.global[name];
 }, {
-    global: {},
+    global: {}
+}, {
     add: function (space, args) {
         var g = this.global;
 
@@ -19,8 +20,11 @@ ui.module = $.extend(function (name, args) {
                 var s = this.state;
 
                 // 模块初始化
-                s.initCallbacks.fire();
+                if (s.initCallbacks.fired()) {
+                    return false;
+                }
 
+                s.initCallbacks.fire();
                 this.initEnd();
 
             },

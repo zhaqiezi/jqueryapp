@@ -8,7 +8,6 @@ ui.module('about').add('framework', {
         path: '/about/framework',
     }),
     routerEnd: function (location) {
-        debugger
 
         // 异步广播触发，需要进行路由校验
         if (this.router.path.test(location.path)) {

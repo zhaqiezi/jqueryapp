@@ -1,12 +1,24 @@
 .ui-router {
   display: none;
   .pa-trbl();
+  .cursor-none();
   z-index: 100;
-  > .wrapper {
+  &[state="404"] {
+    > .page404 {
+      display: block;
+    }
+  }
+  &[state="progress"] {
+    > .progress {
+      display: block;
+    }
+  }
+  > .progress {
     position: relative;
     width: 100%;
     height: 100%;
-    .progress {
+    display: none;
+    .bar {
       .pa-tl();
       width: 10%;
       height: 3px;
@@ -29,5 +41,9 @@
         animation: rotate360 1s linear infinite;
       }
     }
+  }
+  > .page404 {
+    display: none;
+    // 需要张背景图
   }
 }
