@@ -1,11 +1,14 @@
 ui.require = $.extend(function () {
     var self = this.require;
-
+    self.init.apply(self, arguments);
 }, {
-    g: {},
+    global: {},
+    i18: ui.i18n('zh', {
+        'ui-require-error': '抱歉，组件加载失败，点击确定按钮可刷新页面！',
+    }),
     config: {},
     init: function () {
-        var g = this.g;
+        var g = this.global;
         var completeFnIndex = -1;
         var progressFnIndex = -1;
         var keys = [];
@@ -217,7 +220,7 @@ ui.require = $.extend(function () {
         return ui.array.unique(rt);
     },
     promise: function (resolveKeys, resolveIndex) {
-        var g = this.g;
+        var g = this.global;
         var key, _key;
         var parentKeys = resolveKeys.join(',');
         // 循环体结束
@@ -286,7 +289,7 @@ ui.require = $.extend(function () {
         }
     },
     resolve: function (_perkey, key, resolveKeys, resolveIndex) {
-        var g = this.g;
+        var g = this.global;
         var c = this.config;
         if (!c[_perkey]) {
             var perkeys = _perkey.split(',');
@@ -345,6 +348,9 @@ ui.require = $.extend(function () {
                             link.onload = function () {
                                 ui.require.loaded(this.url);
                             }
+                            link.onerror = function () {
+
+                            }
                         }
                     }
                     if (ui.isJs(url)) {
@@ -353,6 +359,9 @@ ui.require = $.extend(function () {
                         script.type = 'text/javascript';
                         script.onload = function () {
                             ui.require.loaded(this.url);
+                        }
+                        script.onerror = function () {
+                            ui.require.error(this.url);
                         }
                         document.head.appendChild(script);
                     }
@@ -373,7 +382,7 @@ ui.require = $.extend(function () {
         return true;
     },
     loaded: function (url) {
-        var g = this.g;
+        var g = this.global;
         g[url].done = true;
         for (var key in g) {
             var one = g[key];
@@ -398,7 +407,7 @@ ui.require = $.extend(function () {
         }
     },
     done: function (_perkey, key, resolveKeys, resolveIndex) {
-        var g = this.g;
+        var g = this.global;
         var _key = key.join(',');
 
         var parentKeys = resolveKeys.join(',');
@@ -439,7 +448,7 @@ ui.require = $.extend(function () {
         }
     },
     dones: function (files) {
-        var g = this.g;
+        var g = this.global;
         var rt = 0;
         for (var k in g) {
             for (var i in files) {
@@ -450,13 +459,19 @@ ui.require = $.extend(function () {
         }
         return rt;
     },
+    error: function (msg) {
+        msg = ui.i18n('ui-require-error') + '<br>' + msg;
+        ui.dialog.error(msg, function () {
+            window.location.reload();
+        })
+    }
 }, {
     has: function (id) {
         return this.config[id] !== undefined;
     },
     isDone: function (id) {
-        if (this.g[id] !== undefined) {
-            return this.g[id].done;
+        if (this.global[id] !== undefined) {
+            return this.global[id].done;
         }
         return false;
     }

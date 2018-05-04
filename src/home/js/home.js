@@ -1,5 +1,9 @@
 'use strict'
 ui.module('home', {
+    i18n: ui.i18n('zh', {
+        '/': 'jQuery based application',
+    }),
+    router: ui.router({i18n: true, title: '/', path: '/'}),
     state: {},
     config: {
         version: '{{environment.version}}',
@@ -10,9 +14,7 @@ ui.module('home', {
             ],
         }
     },
-    i18n: ui.i18n('zh', {
-        'home-title': 'jQuery based application',
-    }),
+
     initEnd: function () {
         var c = this.config;
 
