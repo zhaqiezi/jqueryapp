@@ -8,6 +8,7 @@ ui.module('framework').add('plan', {
         path: '/framework/plan',
     }),
     routerEnd: function (location) {
+
         if (this.router.path === location.path) {
             this.remove();
             return false;

@@ -6,8 +6,9 @@ ui.module('home').add('header', {
         'home-header-css': '组件CSS',
         'home-header-js': '模块JS',
         'home-header-ui': '过程UI',
-        'home-header-usercenter': '用户中心',
-        'home-header-logout': '登出',
+        'home-header-user': '用户中心',
+        'home-header-system': '系统配置',
+        'home-header-i18n': '多语言',
     }),
     init: function () {
         this.html();
@@ -20,7 +21,7 @@ ui.module('home').add('header', {
             $('<div>', {class: "wrapper"}).html([
                 c.$logo = this.htmlLogo(),
                 c.$menu = this.htmlMenu(),
-                c.$user = this.htmlUser(),
+                c.$right = this.htmlRight(),
             ]),
         ]);
         $('body').html(c.$element);
@@ -28,7 +29,7 @@ ui.module('home').add('header', {
     htmlLogo: function () {
         return $('<div>', {class: "logo"}).html([
             $('<div>', {class: 'img'}),
-            $('<div>', {
+            $('<a>', {
                 class: 'a logoname',
                 href: '/'
             }).data({
@@ -70,23 +71,31 @@ ui.module('home').add('header', {
             }).data({
                 i18n: 'home-header-ui'
             }),
+            $('<a>', {
+                class: "a",
+                href: '/user'
+            }).data({
+                i18n: 'home-header-user'
+            }),
+            $('<a>', {
+                class: "a",
+                href: '/system'
+            }).data({
+                i18n: 'home-header-system'
+            }),
+
         ]);
     },
-    htmlUser: function () {
-        var t = this;
+    htmlRight: function () {
         var c = this.config;
 
-        return $('<div>', {class: "user"}).html([
-            c.$username = $('<a>', {
-                class: "a name",
+        return $('<div>', {class: "right"}).html([
+            $('<a>', {
+                class: "a",
+                href: '/i18n'
             }).data({
-                i18n: 'home-header-usercenter'
+                i18n: 'home-header-i18n'
             }),
-            c.$userlogout = $('<a>', {
-                class: "a logout",
-            }).data({
-                i18n: 'home-header-logout'
-            }).click(t.$$parent.logout)
         ]);
     },
     on: function () {

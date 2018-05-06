@@ -52,10 +52,12 @@ ui.module = $.extend(function (name, args) {
                 s.startCallbacks.add(fn);
             },
             remove: function () {
+                var s = this.state;
                 var c = this.config;
 
                 if (c.$element) {
                     c.$element.remove();
+                    s.isMount = false;
                 }
             },
         }, args, {

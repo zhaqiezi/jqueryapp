@@ -53,6 +53,7 @@ ui.router = $.extend(function () {
         // 监听window.onpopstate事件
         window.onpopstate = function () {
             var state = window.history.state;
+            console.log(state);
             if (self.isLegal(state.href)) {
                 self.pjax(false);
             }
@@ -69,7 +70,7 @@ ui.router = $.extend(function () {
 
         var module = s.location.module;
 
-        this.save(save);
+        this.history(save);
 
         if (location.pathname === '/') {
             this.pjaxStop(location);
@@ -145,14 +146,13 @@ ui.router = $.extend(function () {
         var module = dir[0] || 'home';
 
         s.location = {
-            referer: ui.json.clone(window.location, ['href', 'pathname', 'search', 'title']),
+            referer: ui.json.clone(window.location, ['href', 'pathname', 'search', 'module']),
             href: href,
             pathname: pathname,
             search: search,
             query: ui.string.getParam(search),
             dir: dir,
             module: module,
-            title: ''
         }
 
         return true;
@@ -179,7 +179,7 @@ ui.router = $.extend(function () {
             if (exist) {
                 rt = true;
                 if (updateTitle) {
-                    s.location.title = json.i18n ? ui.i18n(title) : title;
+                    document.title = json.i18n ? ui.i18n(title) : title;
                 }
             }
         });
@@ -201,11 +201,11 @@ ui.router = $.extend(function () {
         }
         return true;
     },
-    save: function (save) {
+    history: function (save) {
         var s = this.state;
 
         if (save !== false) {
-            window.history.pushState(ui.json.clone(s.location, ['href', 'pathname', 'search', 'title']), s.location.title, s.location.href);
+            window.history.pushState(ui.json.clone(s.location, ['href', 'pathname', 'search']), '', s.location.href);
         }
     },
     error404: function () {

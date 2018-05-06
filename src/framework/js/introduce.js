@@ -8,7 +8,7 @@ ui.module('framework').add('introduce', {
         path: '/framework/introduce',
     }),
     routerEnd: function (location) {
-        if (this.router.path === location.path) {
+        if (location.path === this.router.path) {
             this.remove();
             return false;
         }

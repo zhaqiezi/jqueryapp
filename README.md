@@ -13,10 +13,10 @@
 * 高可用性，高可扩展性
 
 ### 开始运行
-1、fork 项目到本地
-2、cd src
-3、npm install
-4、npm run server
-5、(可选，在开发的时候) npm start
+* fork 项目到本地
+* cd src
+* npm install
+* npm run server
+* (在开发的时候) npm start
 
 

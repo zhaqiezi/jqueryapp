@@ -12,13 +12,14 @@ const replace = require('gulp-replace');
 const package = require('../package.json');
 
 // 需要配置的内容
-// 模块名称：SPA首页
+// 模块名称：home
 const moduleName = 'home';
 const moduleDist = path.join(__dirname, '../../dist');
 const taskJsSrc = [
     path.join(__dirname, 'js/home.js'),
     path.join(__dirname, 'js/header.js'),
     path.join(__dirname, 'js/body.js'),
+    path.join(__dirname, 'js/menu.js'),
 
 ];
 exports.enable = true;

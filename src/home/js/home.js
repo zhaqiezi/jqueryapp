@@ -1,7 +1,7 @@
 'use strict'
 ui.module('home', {
     i18n: ui.i18n('zh', {
-        '/': 'jQuery based application',
+        '/': 'jQueryApp',
     }),
     router: ui.router({
         i18n: true,
