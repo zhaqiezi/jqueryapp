@@ -3,7 +3,8 @@ ui.router = $.extend(function () {
     return self.add.apply(self, arguments);
 }, {
     i18n: ui.i18n('zh', {
-        'ui-router-page404': '页面不存在',
+        'ui-router-page404': '<div class="f36 m36-b">$ui-router-page404-title$</div><div class="f24">OMG 页面不存在</div>',
+        'ui-router-page404-title': '出错了',
         'ui-router-pjaxfail': '抱歉，相关组件加载失败，请点击确定重新加载！',
     }),
     state: {
@@ -31,7 +32,7 @@ ui.router = $.extend(function () {
                 ]),
             ]),
             c.$page404 = $('<div>', {class: "page404"}).html([
-                $('<div>', {class: 'title'}).data('i18n', 'ui-router-page404')
+                $('<div>', {class: 'title'}).data('i18n', 'ui-router-page404'),
             ]),
         ]);
         $('body').append(c.$element);
@@ -62,40 +63,42 @@ ui.router = $.extend(function () {
         var s = this.state;
         var self = this;
 
-        var location = ui.json.clone(s.location);
-
         if (s.isPjaxing) {
             return false;
         }
 
+        var module = s.location.module;
+
+        this.save(save);
+
         if (location.pathname === '/') {
-            this.pjaxSuccess(location);
+            this.pjaxStop(location);
             return false;
         }
 
-        if (!this.isModule(location.module)) {
+        if (!this.isModule()) {
             return false;
         }
 
-        if (ui.require.isDone(location.module)) {
-            this.pjaxSuccess(location, save);
+        if (ui.require.isDone(module)) {
+            this.pjaxStop(location);
             return false;
         }
 
         this.pjaxStart(location);
 
-        ui.require(location.module, function () {
-            ui.module(location.module).init();
-            self.pjaxSuccess(location);
+        ui.require(module, function () {
+            ui.module(module).init();
+            self.pjaxStop(location);
         }, this.pjaxProgress.bind(this));
 
     },
-    pjaxStart: function (location) {
+    pjaxStart: function () {
         var s = this.state;
 
-        s.startCallbacks.fire(location);
-        this.setState('progress');
+        s.startCallbacks.fire(s.location);
         s.isPjaxing = true;
+        this.setState('progress');
     },
     pjaxProgress: function (done, total) {
         var c = this.config;
@@ -109,21 +112,19 @@ ui.router = $.extend(function () {
                 complete: function () {
                     if (done == total) {
                         c.$element.stop();
-                        self.setState('normal');
                     }
                 }
             }, 'swing');
         }
     },
-    pjaxSuccess: function (location, save) {
-        this.save(location, save);
-        this.pjaxStop(location);
-    },
-    pjaxStop: function (location) {
+    pjaxStop: function () {
         var s = this.state;
 
+        if (this.isExist(true)) {
+            s.endCallbacks.fire(s.location);
+            this.setState('');
+        }
         s.isPjaxing = false;
-        s.endCallbacks.fire(location);
     },
     isLegal: function (href) {
         var s = this.state;
@@ -136,85 +137,84 @@ ui.router = $.extend(function () {
 
         var pathname = href;
         var search = '';
-
         if (href.indexOf('?') != -1) {
             pathname = href.substr(0, href.lastIndexOf('?'));
             search = href.substr(href.lastIndexOf('?'));
         }
-
         var dir = ui.array.del(pathname.split('/'), '');
+        var module = dir[0] || 'home';
 
         s.location = {
-            referer: ui.json.clone(window.location, ['href', 'pathname', 'search'], {title: document.title}),
+            referer: ui.json.clone(window.location, ['href', 'pathname', 'search', 'title']),
             href: href,
             pathname: pathname,
             search: search,
             query: ui.string.getParam(search),
             dir: dir,
-            module: dir[0] || 'home'
+            module: module,
+            title: ''
         }
 
         return true;
     },
-    isExist: function (location) {
+    isExist: function (updateTitle) {
+        var s = this.state;
         var c = this.config;
-        var title = false;
+        var href = this.state.location.href;
 
+        var rt = false;
         c.router.forEach(function (json) {
-            var rt = false;
-            if (ui.isRegExp(json.path)) {
-                if (json.path.test(location.href)) {
-                    rt = true;
+            var exist = false;
+            var path = json.path;
+            var title = json.title;
+
+            if (ui.isRegExp(path)) {
+                if (path.test(href)) {
+                    exist = true;
                 }
-            } else if (json.path === location.href) {
-                rt = true;
+            } else if (path === href) {
+                exist = true;
             }
 
-            if (rt) {
-                if (json.i18n) {
-                    title = ui.i18n(json.title);
-                } else {
-                    title = json.title;
+            if (exist) {
+                rt = true;
+                if (updateTitle) {
+                    s.location.title = json.i18n ? ui.i18n(title) : title;
                 }
             }
         });
 
-        if (title === false) {
+        if (rt === false) {
             this.error404();
-            console.error('url is not exist: ' + location.href);
-        } else {
-            this.setState('normal');
+            console.error('url is not exist: ' + href);
         }
 
-        return title;
+        return rt;
     },
-    isModule: function (module) {
-        if (!ui.require.has(module)) {
+    isModule: function () {
+        var s = this.state;
+
+        if (!ui.require.has(s.location.module)) {
             this.error404();
-            console.error('module is not exist: ' + module);
+            console.error('module is not exist: ' + s.location.module);
             return false;
         }
         return true;
     },
-    save: function (location, save) {
+    save: function (save) {
         var s = this.state;
 
-        var title = this.isExist(location);
-        if (!title) {
-            return false;
-        }
-
-        document.title = title;
         if (save !== false) {
-            window.history.pushState(ui.json.clone(s.location, ['href', 'pathname', 'search'], {title: document.title}), document.title, s.location.href);
+            window.history.pushState(ui.json.clone(s.location, ['href', 'pathname', 'search', 'title']), s.location.title, s.location.href);
         }
     },
     error404: function () {
-        document.title = ui.i18n('ui-router-page404');
+        document.title = ui.i18n('ui-router-page404-title');
         this.setState('404');
     },
     setState: function (state) {
         var c = this.config;
+
         c.$element.attr('state', state);
     },
 }, {
@@ -222,6 +222,7 @@ ui.router = $.extend(function () {
         var c = this.config;
 
         c.router = c.router.concat(router);
+        return router;
     },
     refresh: function () {
         var s = this.state;
@@ -250,10 +251,14 @@ ui.router = $.extend(function () {
         }
     },
     addStart: function (fn) {
-        this.startCallbacks.add(fn);
+        var s = this.state;
+
+        s.startCallbacks.add(fn);
     },
     addEnd: function (fn) {
-        this.endCallbacks.add(fn);
+        var s = this.state;
+
+        s.endCallbacks.add(fn);
     },
     getPath: function (location, level) {
         var pathname = '/';

@@ -42,7 +42,7 @@ ui.module('home').add('header', {
         return $('<div>', {class: "menu"}).html([
             $('<a>', {
                 class: 'a',
-                href: '/about/framework'
+                href: '/framework/plan'
             }).data({
                 i18n: 'home-header-plan'
             }),
@@ -94,7 +94,23 @@ ui.module('home').add('header', {
 
 
     },
+    onActive: function (url) {
+        var c = this.config;
 
+        c.$menu.children().each(function () {
+            var href = $(this).attr('href');
+
+            if (url == href) {
+                $(this).attr('state', 'active');
+            } else {
+                $(this).attr('state', '');
+            }
+        });
+    },
+    routerEnd: function (location) {
+        this.onActive(location.href);
+
+    }
 
 
 });

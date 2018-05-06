@@ -1,16 +1,14 @@
-ui.module('about').add('framework', {
+ui.module('framework').add('introduce', {
     i18n: ui.i18n('zh', {
-        '/about/framework': 'jQueryApp框架的目标功能'
+        '/framework/introduce': '框架介绍'
     }),
     router: ui.router({
-        title: '/about/framework',
         i18n: true,
-        path: '/about/framework',
+        title: '/framework/introduce',
+        path: '/framework/introduce',
     }),
     routerEnd: function (location) {
-
-        // 异步广播触发，需要进行路由校验
-        if (this.router.path.test(location.path)) {
+        if (this.router.path === location.path) {
             this.remove();
             return false;
         }
@@ -31,8 +29,6 @@ ui.module('about').add('framework', {
             c.$wrapper = $('<div>', {class: "wrapper"})
         ]);
         ui.module('home.body').html(c.$element);
-
-
 
 
     },

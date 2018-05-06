@@ -3,14 +3,18 @@ ui.module('home', {
     i18n: ui.i18n('zh', {
         '/': 'jQuery based application',
     }),
-    router: ui.router({i18n: true, title: '/', path: '/'}),
+    router: ui.router({
+        i18n: true,
+        title: '/',
+        path: '/'
+    }),
     state: {},
     config: {
         version: '{{environment.version}}',
         module: {
-            'about': [
-                '/css/about.css',
-                '/js/about.js'
+            'framework': [
+                '/css/framework.css',
+                '/js/framework.js'
             ],
         }
     },

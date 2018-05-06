@@ -1,25 +1,27 @@
 .ui-router {
-  display: none;
+  .cursor-none();
   .pa-trbl();
   z-index: 100;
+  .ui-animate();
+  opacity: 0;
   &[state="404"] {
-    display: block;
+    opacity: 1;
     > .page404 {
-      opacity: 1;
+      display: block;
     }
   }
   &[state="progress"] {
-    display: block;
+    .ui-animate.fadeIn();
     > .progress {
-      opacity: 1;
+      display: block;
     }
   }
   > .progress {
-    .cursor-none();
-    opacity: 0;
-    position: relative;
+
+    .pa-tl();
     width: 100%;
     height: 100%;
+    display: none;
     .bar {
       .pa-tl();
       width: 10%;
@@ -45,12 +47,19 @@
     }
   }
   > .page404 {
-    opacity: 0;
-    position: relative;
+    display: none;
+    .pa-tl();
     width: 100%;
     height: 100%;
     background-color: @white;
     color: @black;
-    // 需要张背景图
+    background-image: url('img/ui-router-404.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    .title {
+      padding-top: 10%;
+      padding-left: 10%;
+    }
   }
+
 }

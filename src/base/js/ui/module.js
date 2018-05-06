@@ -1,6 +1,6 @@
 ui.module = $.extend(function (name, args) {
     var self = this.module;
-    if (!ui.isEmpty(args)) {
+    if (!ui.isNull(args)) {
         self.add(name, args);
     }
     return self.global[name];
@@ -82,14 +82,9 @@ ui.module = $.extend(function (name, args) {
                 // 回传给父级，挂载此自组件，以便使用
                 this.$$children[name] = module;
 
+                ui.router.addStart(module.routerStart.bind(module));
+                ui.router.addEnd(module.routerEnd.bind(module));
                 this.addInit(module.init.bind(module));
-
-                if (module.router !== false) {
-                    this.addInit(function () {
-                        ui.router.addStart(module.routerStart.bind(module));
-                        ui.router.addEnd(module.routerEnd.bind(module));
-                    });
-                }
 
             },
         });
