@@ -53,7 +53,6 @@ ui.router = $.extend(function () {
         // 监听window.onpopstate事件
         window.onpopstate = function () {
             var state = window.history.state;
-            console.log(state);
             if (self.isLegal(state.href)) {
                 self.pjax(false);
             }

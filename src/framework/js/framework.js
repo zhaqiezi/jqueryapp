@@ -1,68 +1,39 @@
 'use strict'
 ui.module('framework', {
+    i18n: ui.i18n('zh', {
+        'framework-introduce': '框架介绍',
+
+    }),
     routerEnd: function (location) {
         if (location.referer.module !== 'framework') {
-
+            debugger
         }
+    },
+    initEnd: function () {
 
-        if (this.start()) {
-            this.html(this.on);
-        }
-
+        this.start();
+        console.log(4);
     },
     start: function () {
-        // 模块缺少start机制
+        var c = this.config;
+
+        ui.module('home.menu').html(this.htmlMenu());
     },
     htmlMenu: function () {
         var c = this.config;
 
-        c.$menu = $('<div>', {class: "menu"}).html([
+        return c.$menu = $('<div>', {class: "menu"}).html([
             $('<a>', {
                 class: 'a',
-                href: '/framework/plan'
+                href: '/framework/introduce'
             }).data({
-                i18n: 'home-header-plan'
+                i18n: 'framework-introduce'
             }),
-            $('<a>', {
-                class: 'a',
-                href: '/spa'
-            }).data({
-                i18n: 'home-header-spa'
-            }),
-            $('<a>', {
-                class: 'a',
-                href: '/css/point'
-            }).data({
-                i18n: 'home-header-css'
-            }),
-            $('<a>', {
-                class: 'a',
-                href: '/js/point'
-            }).data({
-                i18n: 'home-header-js'
-            }),
-            $('<a>', {
-                class: 'a',
-                href: '/ui'
-            }).data({
-                i18n: 'home-header-ui'
-            }),
-            $('<a>', {
-                class: "a",
-                href: '/user'
-            }).data({
-                i18n: 'home-header-user'
-            }),
-            $('<a>', {
-                class: "a",
-                href: '/system'
-            }).data({
-                i18n: 'home-header-system'
-            }),
+
 
         ]);
 
-        ui.module('home.menu').html(c.$menu);
+
     },
 });
 

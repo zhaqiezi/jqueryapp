@@ -6,7 +6,7 @@ ui.module('home').add('menu', {
     html: function ($html) {
         var c = this.config;
 
-        if (ui.isJquery($html)) {
+        if (!ui.isNull($html)) {
             c.$wrapper.html($html);
         } else {
             c.$element = $('<div>', {class: "home-menu"}).html([

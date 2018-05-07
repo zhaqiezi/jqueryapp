@@ -16,7 +16,7 @@
 * fork 项目到本地
 * cd src
 * npm install
+* npm start
 * npm run server
-* (在开发的时候) npm start
 
 
