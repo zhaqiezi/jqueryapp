@@ -51,7 +51,10 @@ ui.module = $.extend(function (name, args) {
 
                 s.startCallbacks.add(fn);
             },
-            remove: function () {
+            mount:function(){
+
+            },
+            unmount: function () {
                 var s = this.state;
                 var c = this.config;
 
@@ -67,6 +70,7 @@ ui.module = $.extend(function (name, args) {
             }, args.state),
             config: $.extend({
                 space: space,
+                module: space.split('.')[0],
                 $element: null,
             }, args.config),
             $$parent: {},
@@ -84,12 +88,14 @@ ui.module = $.extend(function (name, args) {
                 // 回传给父级，挂载此自组件，以便使用
                 this.$$children[name] = module;
 
-                ui.router.addStart(module.routerStart.bind(module));
-                ui.router.addEnd(module.routerEnd.bind(module));
                 this.addInit(module.init.bind(module));
 
             },
+
         });
+
+        ui.router.addStart(g[space].routerStart.bind(g[space]));
+        ui.router.addEnd(g[space].routerEnd.bind(g[space]));
 
         return g[space];
     }

@@ -9,7 +9,7 @@ ui.module('framework').add('introduce', {
     }),
     routerEnd: function (location) {
         if (location.path === this.router.path) {
-            this.remove();
+            this.unmount();
             return false;
         }
 

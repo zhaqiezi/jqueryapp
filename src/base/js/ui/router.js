@@ -9,6 +9,7 @@ ui.router = $.extend(function () {
     }),
     state: {
         location: {},
+        referer: {},
         isPjaxing: false,
         startCallbacks: $.Callbacks('unique stopOnFalse'),
         endCallbacks: $.Callbacks('unique'),
@@ -142,16 +143,17 @@ ui.router = $.extend(function () {
             search = href.substr(href.lastIndexOf('?'));
         }
         var dir = ui.array.del(pathname.split('/'), '');
-        var module = dir[0] || 'home';
 
+        s.referer = ui.json.clone(s.location);
         s.location = {
-            referer: ui.json.clone(window.location, ['href', 'pathname', 'search', 'module']),
+            referer: ui.json.clone(s.referer),
             href: href,
             pathname: pathname,
             search: search,
             query: ui.string.getParam(search),
             dir: dir,
-            module: module,
+            module: dir[0] || 'home',
+            space: dir.join('.')
         }
 
         return true;

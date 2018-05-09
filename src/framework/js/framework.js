@@ -5,24 +5,23 @@ ui.module('framework', {
 
     }),
     routerEnd: function (location) {
-        if (location.referer.module !== 'framework') {
-            debugger
-        }
-    },
-    initEnd: function () {
+        var c = this.config;
 
-        this.start();
-        console.log(4);
+        if (location.module == c.module && location.referer.module !== c.module) {
+            this.start();
+        } else {
+            this.unmount(c.$menu)
+        }
     },
     start: function () {
         var c = this.config;
 
-        ui.module('home.menu').html(this.htmlMenu());
+        this.mount(ui.module('home.menu').config.$wrapper, c.$menu);
     },
     htmlMenu: function () {
         var c = this.config;
 
-        return c.$menu = $('<div>', {class: "menu"}).html([
+        c.$menu = $('<div>', {class: "menu"}).html([
             $('<a>', {
                 class: 'a',
                 href: '/framework/introduce'
