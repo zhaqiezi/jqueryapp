@@ -6,14 +6,10 @@ ui.module('home').add('body', {
     html: function ($html) {
         var c = this.config;
 
-        if (!ui.isNull($html)) {
-            c.$wrapper.html($html);
-        } else {
-            c.$element = $('<div>', {class: "home-body"}).html([
-                c.$wrapper = $('<div>', {class: "wrapper"})
-            ]);
-            $('body').append(c.$element);
-        }
+        c.$element = $('<div>', {class: "home-body"}).html([
+            c.$wrapper = $('<div>', {class: "wrapper"})
+        ]);
+        this.mount($('body'), c.$element, 'append');
     },
     on: function () {
         var c = this.config;

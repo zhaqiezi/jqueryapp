@@ -7,16 +7,20 @@ ui.module('framework', {
     routerEnd: function (location) {
         var c = this.config;
 
-        if (location.module == c.module && location.referer.module !== c.module) {
-            this.start();
-        } else {
+        if (location.module === c.module) {
+            if (location.referer.module !== c.module) {
+                this.start();
+            }
+        }
+        else {
             this.unmount(c.$menu)
         }
+
     },
     start: function () {
         var c = this.config;
 
-        this.mount(ui.module('home.menu').config.$wrapper, c.$menu);
+        this.mount(ui.module('home.menu').config.$wrapper, this.htmlMenu(), 'html');
     },
     htmlMenu: function () {
         var c = this.config;
@@ -28,9 +32,9 @@ ui.module('framework', {
             }).data({
                 i18n: 'framework-introduce'
             }),
-
-
         ]);
+
+        return c.$menu;
 
 
     },

@@ -51,18 +51,7 @@ ui.module = $.extend(function (name, args) {
 
                 s.startCallbacks.add(fn);
             },
-            mount:function(){
 
-            },
-            unmount: function () {
-                var s = this.state;
-                var c = this.config;
-
-                if (c.$element) {
-                    c.$element.remove();
-                    s.isMount = false;
-                }
-            },
         }, args, {
             state: $.extend({
                 initCallbacks: $.Callbacks('once unique'),
@@ -91,7 +80,32 @@ ui.module = $.extend(function (name, args) {
                 this.addInit(module.init.bind(module));
 
             },
+            mount: function ($container, $html, method) {
+                var c = this.config;
 
+                $html = !$html ? c.$element : $html;
+                method = !method ? 'html' : method;
+
+                $container[method]($html);
+                $html.isMounted = true;
+            },
+            unmount: function ($html) {
+                var c = this.config;
+
+                $html = !$html ? c.$element : $html;
+
+                if ($html) {
+                    $html.isMounted = false;
+                    $html.remove();
+                }
+            },
+            isMounted: function ($html) {
+                var c = this.config;
+
+                $html = !$html ? c.$element : $html;
+
+                return $html.isMounted;
+            }
         });
 
         ui.router.addStart(g[space].routerStart.bind(g[space]));
