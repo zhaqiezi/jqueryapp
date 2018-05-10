@@ -16,6 +16,8 @@ ui.module = $.extend(function (name, args) {
             routerStart: ui.emptyFunction,
             routerSecurity: ui.emptyFunction,
             routerEnd: ui.emptyFunction,
+            mount: ui.emptyFunction,
+            unmount: ui.emptyFunction,
             init: function () {
                 var s = this.state;
 
@@ -80,23 +82,11 @@ ui.module = $.extend(function (name, args) {
                 this.addInit(module.init.bind(module));
 
             },
-            mount: function ($container, $html, method) {
+            remove: function () {
                 var c = this.config;
 
-                $html = !$html ? c.$element : $html;
-                method = !method ? 'html' : method;
-
-                $container[method]($html);
-                $html.isMounted = true;
-            },
-            unmount: function ($html) {
-                var c = this.config;
-
-                $html = !$html ? c.$element : $html;
-
-                if ($html) {
-                    $html.isMounted = false;
-                    $html.remove();
+                if (c.$element) {
+                    c.$element.remove();
                 }
             },
             isMounted: function ($html) {
@@ -104,8 +94,9 @@ ui.module = $.extend(function (name, args) {
 
                 $html = !$html ? c.$element : $html;
 
-                return $html.isMounted;
+                return $.contains(document.documentElement, $html);
             }
+
         });
 
         ui.router.addStart(g[space].routerStart.bind(g[space]));
@@ -114,4 +105,5 @@ ui.module = $.extend(function (name, args) {
         return g[space];
     }
 });
+
 

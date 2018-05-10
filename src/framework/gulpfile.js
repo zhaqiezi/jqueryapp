@@ -16,6 +16,8 @@ const moduleName = 'framework';
 const moduleDist = path.join(__dirname, '../../dist');
 const taskJsSrc = [
     path.join(__dirname, 'js/' + moduleName + '.js'),
+
+    path.join(__dirname, 'js/menu.js'),
     path.join(__dirname, 'js/plan.js'),
     path.join(__dirname, 'js/introduce.js'),
 

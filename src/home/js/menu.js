@@ -8,6 +8,7 @@ ui.module('home').add('menu', {
 
         if (!ui.isNull($html)) {
             c.$wrapper.html($html);
+            $html.isMount
 
         } else {
             c.$element = $('<div>', {class: "home-menu"}).html([

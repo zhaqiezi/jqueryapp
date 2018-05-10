@@ -16,7 +16,8 @@ const package = require('../package.json');
 const moduleName = 'home';
 const moduleDist = path.join(__dirname, '../../dist');
 const taskJsSrc = [
-    path.join(__dirname, 'js/home.js'),
+    path.join(__dirname, 'js/' + moduleName + '.js'),
+
     path.join(__dirname, 'js/header.js'),
     path.join(__dirname, 'js/body.js'),
     path.join(__dirname, 'js/menu.js'),
