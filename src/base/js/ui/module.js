@@ -37,11 +37,6 @@ ui.module = $.extend(function (name, args) {
                 s.initCallbacks.add(fn);
             },
             start: function () {
-                // 模块的相关校验
-                if (this.routerSecurity() === false) {
-                    return false;
-                }
-
                 // 模块被使用
                 this.startCallbacks.fire();
 
@@ -82,7 +77,14 @@ ui.module = $.extend(function (name, args) {
                 this.addInit(module.init.bind(module));
 
             },
-            remove: function () {
+            mount:function($html){
+                var c = this.config;
+
+                if (c.$wrapper) {
+                    c.$wrapper.html($html);
+                }
+            },
+            unmount:function(){
                 var c = this.config;
 
                 if (c.$element) {

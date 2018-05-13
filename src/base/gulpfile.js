@@ -31,6 +31,7 @@ const taskJsSrc = [
     path.join(__dirname, 'js/ui/i18n.js'),
     path.join(__dirname, 'js/ui/is.js'),
     path.join(__dirname, 'js/ui/json.js'),
+    path.join(__dirname, 'js/ui/menu.js'),
     path.join(__dirname, 'js/ui/module.js'),
     path.join(__dirname, 'js/ui/require.js'),
     path.join(__dirname, 'js/ui/router.js'),

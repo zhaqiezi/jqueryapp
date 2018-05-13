@@ -44,8 +44,9 @@ ui.router = $.extend(function () {
 
         // SPA方式，需要全局接管标签<a>链接的点击事件
         $(document).on('click', 'a[href]:not([target="_blank"]):not([download])', function (e) {
-            var path = $(this).attr('href');
-            if (self.rewrite(path)) {
+            var href = $(this).attr('href');
+            if (self.isLegal(href)) {
+                self.pjax();
                 // 阻断原生
                 e.preventDefault();
             }
@@ -54,7 +55,7 @@ ui.router = $.extend(function () {
         // 监听window.onpopstate事件
         window.onpopstate = function () {
             var state = window.history.state;
-            if (self.isLegal(state.href)) {
+            if (self.isLegal(state.url)) {
                 self.pjax(false);
             }
         };
@@ -74,10 +75,6 @@ ui.router = $.extend(function () {
 
         if (location.pathname === '/') {
             this.pjaxStop(location);
-            return false;
-        }
-
-        if (!this.isModule()) {
             return false;
         }
 
@@ -127,33 +124,37 @@ ui.router = $.extend(function () {
         }
         s.isPjaxing = false;
     },
-    isLegal: function (href) {
+    isLegal: function (url) {
         var s = this.state;
 
         // 预留有些情况要return false;
         // 绝对路径的链接跳过
-        if (/(^\w)*?\:\/\//.test(href)) {
+        if (/(^\w)*?\:\/\//.test(url)) {
             return false;
         }
 
-        var pathname = href;
+        var pathname = url;
         var search = '';
-        if (href.indexOf('?') != -1) {
-            pathname = href.substr(0, href.lastIndexOf('?'));
-            search = href.substr(href.lastIndexOf('?'));
+        if (url.indexOf('?') != -1) {
+            pathname = url.substr(0, url.lastIndexOf('?'));
+            search = url.substr(url.lastIndexOf('?'));
         }
         var dir = ui.array.del(pathname.split('/'), '');
 
         s.referer = ui.json.clone(s.location);
         s.location = {
             referer: ui.json.clone(s.referer),
-            href: href,
+            url: url,
             pathname: pathname,
             search: search,
             query: ui.string.getParam(search),
             dir: dir,
-            module: dir[0] || 'home',
+            module: dir[0] || '',
             space: dir.join('.')
+        }
+
+        if (!this.hasModule()) {
+            return false;
         }
 
         return true;
@@ -161,7 +162,7 @@ ui.router = $.extend(function () {
     isExist: function (updateTitle) {
         var s = this.state;
         var c = this.config;
-        var href = this.state.location.href;
+        var url = this.state.location.url;
 
         var rt = false;
         c.router.forEach(function (json) {
@@ -170,10 +171,10 @@ ui.router = $.extend(function () {
             var title = json.title;
 
             if (ui.isRegExp(path)) {
-                if (path.test(href)) {
+                if (path.test(url)) {
                     exist = true;
                 }
-            } else if (path === href) {
+            } else if (path === url) {
                 exist = true;
             }
 
@@ -187,15 +188,15 @@ ui.router = $.extend(function () {
 
         if (rt === false) {
             this.error404();
-            console.error('url is not exist: ' + href);
+            console.error('url is not exist: ' + url);
         }
 
         return rt;
     },
-    isModule: function () {
+    hasModule: function () {
         var s = this.state;
 
-        if (!ui.require.has(s.location.module)) {
+        if (s.location.module && !ui.require.has(s.location.module)) {
             this.error404();
             console.error('module is not exist: ' + s.location.module);
             return false;
@@ -204,13 +205,20 @@ ui.router = $.extend(function () {
     },
     history: function (save) {
         var s = this.state;
+        var url = s.location.url;
+        var key = 'ui.router.state.location.url';
 
         if (save !== false) {
-            window.history.pushState(ui.json.clone(s.location, ['href', 'pathname', 'search']), '', s.location.href);
+            if (url !== window.sessionStorage.getItem(key)) {
+                window.sessionStorage.setItem(key, url);
+                window.history.pushState(ui.json.clone(s.location, ['url', 'pathname', 'search']), '', url);
+            }
         }
     },
     error404: function () {
-        document.title = ui.i18n('ui-router-page404-title');
+        var s = this.state;
+
+        document.title = ui.i18n('ui-router-page404-title') + s.location.pathname;
         this.setState('404');
     },
     setState: function (state) {
@@ -225,30 +233,13 @@ ui.router = $.extend(function () {
         c.router = c.router.concat(router);
         return router;
     },
-    refresh: function () {
-        var s = this.state;
+    go: function (url) {
+        var wl = window.location;
 
-        var url = window.location.pathname + window.location.search;
+        url = url ? url : (wl.pathname + wl.search);
+
         if (this.isLegal(url)) {
             this.pjax();
-        }
-    },
-    rewrite: function (path) {
-        var s = this.state;
-        // 用输入的方式请求
-        if (!path) {
-            path = window.location.pathname;
-        }
-        // 与当前的链接相同，阻断但不用继续操作
-        if (s.location.path == path) {
-            return true;
-        }
-        if (this.isLegal(path)) {
-            this.pjax($.extend({}, s.location));
-            // 成功进入pjax
-            return true;
-        } else {
-            return false;
         }
     },
     addStart: function (fn) {

@@ -36,7 +36,7 @@ ui.module('home', {
 
         s.startCallbacks.fire();
 
-        ui.router.refresh();
+        ui.router.go();
 
 
     },

@@ -6,13 +6,17 @@ ui.module('home').add('header', {
         'home-header-css': '组件CSS',
         'home-header-js': '模块JS',
         'home-header-ui': '过程UI',
-        'home-header-user': '用户中心',
-        'home-header-system': '系统配置',
         'home-header-i18n': '多语言',
     }),
     init: function () {
         this.html();
         this.on();
+    },
+    routerEnd: function (location) {
+        var c = this.config;
+
+        ui.menu.active(c.$menu, location.url);
+
     },
     html: function () {
         var c = this.config;
@@ -71,18 +75,6 @@ ui.module('home').add('header', {
             }).data({
                 i18n: 'home-header-ui'
             }),
-            $('<a>', {
-                class: "a",
-                href: '/user'
-            }).data({
-                i18n: 'home-header-user'
-            }),
-            $('<a>', {
-                class: "a",
-                href: '/system'
-            }).data({
-                i18n: 'home-header-system'
-            }),
 
         ]);
     },
@@ -103,23 +95,6 @@ ui.module('home').add('header', {
 
 
     },
-    onActive: function (url) {
-        var c = this.config;
-
-        c.$menu.children().each(function () {
-            var href = $(this).attr('href');
-
-            if (url == href) {
-                $(this).attr('state', 'active');
-            } else {
-                $(this).attr('state', '');
-            }
-        });
-    },
-    routerEnd: function (location) {
-        this.onActive(location.href);
-
-    }
 
 
 });

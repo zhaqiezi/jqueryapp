@@ -9,10 +9,11 @@ ui.module('framework').add('menu', {
         if (location.module === c.module) {
             if (location.referer.module !== c.module) {
                 this.start();
+                ui.menu.active(c.$element, location.url);
             }
         }
         else {
-            this.remove()
+            this.unmount();
         }
 
     },
@@ -31,7 +32,8 @@ ui.module('framework').add('menu', {
                 i18n: 'framework-introduce'
             }),
         ]);
-        ui.module('home.menu').html(c.$element);
+
+        ui.module('home.menu').mount(c.$element);
     },
     on: function () {
         var c = this.config;

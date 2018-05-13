@@ -8,12 +8,8 @@ ui.module('framework').add('introduce', {
         path: '/framework/introduce',
     }),
     routerEnd: function (location) {
-        if (location.path === this.router.path) {
+        if (location.pathname !== this.router.path) {
             this.unmount();
-            return false;
-        }
-
-        if (this.$$parent.routerSecurity() === false) {
             return false;
         }
 
@@ -28,8 +24,7 @@ ui.module('framework').add('introduce', {
         c.$element = $('<div>', {class: "module"}).html([
             c.$wrapper = $('<div>', {class: "wrapper"})
         ]);
-        ui.module('home.body').html(c.$element);
-
+        ui.module('home.body').mount(c.$element);
 
     },
     html: function () {
