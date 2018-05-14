@@ -6,6 +6,7 @@ ui.module('home').add('header', {
         'home-header-css': '组件CSS',
         'home-header-js': '模块JS',
         'home-header-ui': '过程UI',
+        'home-header-ui-component': 'UI组件',
         'home-header-i18n': '多语言',
     }),
     init: function () {
@@ -74,6 +75,12 @@ ui.module('home').add('header', {
                 href: '/ui'
             }).data({
                 i18n: 'home-header-ui'
+            }),
+            $('<a>', {
+                class: 'a',
+                href: '/ui/component'
+            }).data({
+                i18n: 'home-header-ui-component'
             }),
 
         ]);

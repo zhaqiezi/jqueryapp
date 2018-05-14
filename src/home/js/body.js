@@ -9,6 +9,7 @@ ui.module('home').add('body', {
         c.$element = $('<div>', {class: "home-body"}).html([
             c.$wrapper = $('<div>', {class: "wrapper"})
         ]);
+
         $('body').append(c.$element);
     },
     on: function () {

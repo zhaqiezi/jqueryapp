@@ -3,42 +3,30 @@ ui.module('framework').add('plan', {
         '/framework/plan': '开发计划'
     }),
     router: ui.router({
-        title: '/framework/plan',
         i18n: true,
+        title: '/framework/plan',
         path: '/framework/plan',
     }),
     routerEnd: function (location) {
-
-        if (this.router.path === location.path) {
-            this.remove();
+        if (location.pathname !== this.router.path) {
+            this.unmount();
             return false;
         }
 
-        if (this.$$parent.routerSecurity() === false) {
-            return false;
-        }
-
-        if (this.start()) {
-            this.html(this.on);
-        }
+        this.start();
 
     },
     start: function () {
+        this.html();
+        this.on();
+    },
+    html: function () {
         var c = this.config;
 
         c.$element = $('<div>', {class: "module"}).html([
             c.$wrapper = $('<div>', {class: "wrapper"})
         ]);
-        ui.module('home.body').html(c.$element);
-
-
-
-
-    },
-    html: function () {
-        var c = this.config;
-
-
+        ui.module('home.body').mount(c.$element);
     },
     on: function () {
         var c = this.config;

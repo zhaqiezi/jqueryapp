@@ -5,17 +5,17 @@ ui.module('framework').add('menu', {
     }),
     routerEnd: function (location) {
         var c = this.config;
+        var s = this.state;
 
-        if (location.module === c.module) {
-            if (location.referer.module !== c.module) {
-                this.start();
-                ui.menu.active(c.$element, location.url);
-            }
-        }
-        else {
+        if (location.module !== c.module) {
             this.unmount();
+            return false;
         }
 
+        if (location.referer.module !== c.module) {
+            s.location = location;
+            this.start();
+        }
     },
     start: function () {
         this.html();
@@ -37,7 +37,9 @@ ui.module('framework').add('menu', {
     },
     on: function () {
         var c = this.config;
+        var s = this.state;
 
+        ui.menu.active(c.$element, s.location.url);
 
     },
 

@@ -41,7 +41,9 @@ ui.module('home', {
 
     },
 
+    component:{
 
+    }
 });
 
 

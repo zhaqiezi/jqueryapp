@@ -14,7 +14,6 @@ ui.module = $.extend(function (name, args) {
             i18n: false,
             router: false,
             routerStart: ui.emptyFunction,
-            routerSecurity: ui.emptyFunction,
             routerEnd: ui.emptyFunction,
             mount: ui.emptyFunction,
             unmount: ui.emptyFunction,

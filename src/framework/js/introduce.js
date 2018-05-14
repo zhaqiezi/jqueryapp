@@ -13,24 +13,28 @@ ui.module('framework').add('introduce', {
             return false;
         }
 
-        if (this.start()) {
-            this.html(this.on);
-        }
+        this.start();
 
     },
     start: function () {
-        var c = this.config;
-
-        c.$element = $('<div>', {class: "module"}).html([
-            c.$wrapper = $('<div>', {class: "wrapper"})
-        ]);
-        ui.module('home.body').mount(c.$element);
-
+        this.html();
+        this.on();
     },
     html: function () {
         var c = this.config;
 
+        c.$element = $('<div>', {class: "module"}).html([
+            c.$wrapper = $('<div>', {class: "wrapper"}).html([
+                ui('title.theme',{
 
+                })
+            ])
+        ]);
+        ui.module('home.body').mount(c.$element);
+    },
+    htmlTitle:function() {
+        // return $html;
+        // $html.mount()  指定一个.html的容器
     },
     on: function () {
         var c = this.config;
