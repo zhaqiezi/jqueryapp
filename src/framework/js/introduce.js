@@ -1,6 +1,9 @@
 ui.module('framework').add('introduce', {
     i18n: ui.i18n('zh', {
-        '/framework/introduce': '框架介绍'
+        '/framework/introduce': '框架介绍',
+
+        'framework-introduce-title': '依然 write less, do more',
+
     }),
     router: ui.router({
         i18n: true,
@@ -25,17 +28,14 @@ ui.module('framework').add('introduce', {
 
         c.$element = $('<div>', {class: "module"}).html([
             c.$wrapper = $('<div>', {class: "wrapper"}).html([
-                ui('title.theme',{
-
-                })
+                c.$title = ui('aticle').h1({
+                    i18n: 'framework-introduce-title'
+                }),
             ])
         ]);
         ui.module('home.body').mount(c.$element);
     },
-    htmlTitle:function() {
-        // return $html;
-        // $html.mount()  指定一个.html的容器
-    },
+
     on: function () {
         var c = this.config;
 

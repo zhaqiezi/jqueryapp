@@ -76,14 +76,14 @@ ui.module = $.extend(function (name, args) {
                 this.addInit(module.init.bind(module));
 
             },
-            mount:function($html){
+            mount: function ($html) {
                 var c = this.config;
 
                 if (c.$wrapper) {
                     c.$wrapper.html($html);
                 }
             },
-            unmount:function(){
+            unmount: function () {
                 var c = this.config;
 
                 if (c.$element) {
@@ -102,6 +102,10 @@ ui.module = $.extend(function (name, args) {
 
         ui.router.addStart(g[space].routerStart.bind(g[space]));
         ui.router.addEnd(g[space].routerEnd.bind(g[space]));
+
+        if (args.component) {
+            ui.add(space, args.component);
+        }
 
         return g[space];
     }

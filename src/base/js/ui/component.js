@@ -7,22 +7,24 @@ ui.component = $.extend(function (name, args) {
 }, {
     global: {}
 }, {
-    add: function (space, args) {
-        var g = this.global;
+    one: function ($element, config, args) {
 
-        g[space] = $.extend({
+        $.extend($element, config, args);
 
+        var html = [];
+        for (var $key in config) {
+            if (args && args[$key]) {
+                html.push(args[$key])
+            } else {
+                html.push(config[$key])
+            }
+        }
 
-        }, args, {
+        $element.html(html);
 
+        return $element;
 
-        });
-
-        ui.router.addStart(g[space].routerStart.bind(g[space]));
-        ui.router.addEnd(g[space].routerEnd.bind(g[space]));
-
-        return g[space];
-    },
+    }
 });
 
 

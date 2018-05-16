@@ -2,6 +2,7 @@
 ui.module('home', {
     i18n: ui.i18n('zh', {
         'home': 'jQueryApp',
+        'back': '返回',
     }),
     router: ui.router({
         i18n: true,
@@ -41,8 +42,24 @@ ui.module('home', {
 
     },
 
-    component:{
+    component: {
+        title: function (args) {
 
+            var $element = $('<div>', {class: "title center"});
+
+            ui.component.one($element, {
+                $btn: ui.component.one($('<a>', {class: "btn-arrow theme left"}).attr({
+                    href: this.href
+                }), {
+                    $icon: $('<i>', {class: 'i-undo2'}),
+                    $word: $('<span>', {class: 'word'}).data('i18n', 'back')
+                }),
+                $text: $('<div>', {class: 'word'}).html(args.text),
+            }, args);
+
+
+            return $element;
+        }
     }
 });
 

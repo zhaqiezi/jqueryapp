@@ -78,6 +78,10 @@ ui.router = $.extend(function () {
             return false;
         }
 
+        if (!this.hasModule(module)) {
+            return false;
+        }
+
         if (ui.require.isDone(module)) {
             this.pjaxStop(location);
             return false;
@@ -153,10 +157,6 @@ ui.router = $.extend(function () {
             space: dir.join('.')
         }
 
-        if (!this.hasModule()) {
-            return false;
-        }
-
         return true;
     },
     isExist: function (updateTitle) {
@@ -193,12 +193,11 @@ ui.router = $.extend(function () {
 
         return rt;
     },
-    hasModule: function () {
-        var s = this.state;
+    hasModule: function (module) {
 
-        if (s.location.module && !ui.require.has(s.location.module)) {
+        if (!ui.require.has(module)) {
             this.error404();
-            console.error('module is not exist: ' + s.location.module);
+            console.error('module is not exist: ' + module);
             return false;
         }
         return true;

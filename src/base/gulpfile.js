@@ -28,6 +28,7 @@ const taskJsSrc = [
     path.join(__dirname, 'js/jquery.position.js'),
     path.join(__dirname, 'js/ui/ui.js'),
     path.join(__dirname, 'js/ui/array.js'),
+    path.join(__dirname, 'js/ui/component.js'),
     path.join(__dirname, 'js/ui/i18n.js'),
     path.join(__dirname, 'js/ui/is.js'),
     path.join(__dirname, 'js/ui/json.js'),
@@ -36,6 +37,7 @@ const taskJsSrc = [
     path.join(__dirname, 'js/ui/require.js'),
     path.join(__dirname, 'js/ui/router.js'),
     path.join(__dirname, 'js/ui/string.js'),
+    path.join(__dirname, 'js/component/*.js'),
 
 
 ];
