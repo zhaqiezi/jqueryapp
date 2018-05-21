@@ -181,7 +181,7 @@ ui.router = $.extend(function () {
             if (exist) {
                 rt = true;
                 if (updateTitle) {
-                    document.title = json.i18n ? ui.i18n(title) : title;
+                    document.title = ui.i18n(title);
                 }
             }
         });

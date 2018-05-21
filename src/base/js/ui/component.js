@@ -7,19 +7,21 @@ ui.component = $.extend(function (name, args) {
 }, {
     global: {}
 }, {
-    one: function ($element, config, args) {
+    one: function ($element, children, args) {
+        var html;
 
-        $.extend($element, config, args);
+        if (ui.isArray(args)) {
+            html = args;
+        } else {
+            $.extend(children, args);
 
-        var html = [];
-        for (var $key in config) {
-            if (args && args[$key]) {
-                html.push(args[$key])
-            } else {
-                html.push(config[$key])
+            html=[];
+            for (var $el in children) {
+                if (ui.isJquery(children[$el])) {
+                    html.push(children[$el])
+                }
             }
         }
-
         $element.html(html);
 
         return $element;

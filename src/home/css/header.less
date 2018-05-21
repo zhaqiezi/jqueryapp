@@ -4,6 +4,13 @@
   width: 100%;
   height: @home-header-height;
   line-height: @home-header-height;
+  .a {
+    &[state="active"] {
+      color: @home-header-a-color-active;
+    }
+    color: @home-header-a-color;
+    font-size: @size11;
+  }
   > .wrapper {
     .cb();
     > .logo {
@@ -11,20 +18,17 @@
       float: left;
       text-align: center;
       > .logoname {
+        color: @home-header-a-color;
         font-size: @home-menu-width/6;
         @media (min-width: 1024px) {
-          font-size: @size18;
+          font-size: @size14;
         }
       }
     }
-
     > .menu {
       padding-left: @home-header-height*2;
       float: left;
       .a {
-        &[state="active"] {
-          color: @header-a-active;
-        }
         padding-left: 8px;
         padding-right: 8px;
         margin-left: 8px;
@@ -36,5 +40,4 @@
       padding-right: @space;
     }
   }
-
 }

@@ -39,10 +39,20 @@ ui.module('home', {
 
         ui.router.go();
 
-
     },
 
     component: {
+        module: function (html) {
+
+            var $element = $('<div>', {class: 'home-module'});
+
+            ui.component.one($element, {
+                $wrapper: ui.component.one($('<div>', {class: "wrapper"}), html),
+            });
+
+            return $element;
+        },
+
         title: function (args) {
 
             var $element = $('<div>', {class: "title center"});
