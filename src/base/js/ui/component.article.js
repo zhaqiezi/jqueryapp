@@ -4,7 +4,7 @@ ui.add('article', {
         var $element = $('<div>', {class: 'ui-article-title'});
 
         ui.component.one($element, {
-            $text: $('<div>', {class: 'word'}).html(html),
+            $wrapper: $('<div>', {class: 'wrapper'}).html(html),
         });
 
         return $element;
@@ -14,7 +14,7 @@ ui.add('article', {
         var $element = $('<div>', {class: 'ui-article-content'});
 
         ui.component.one($element, {
-            $section: $('<div>', {class: 'section'}).html(html),
+            $wrapper: $('<div>', {class: 'wrapper'}).html(html),
         });
 
         return $element;
