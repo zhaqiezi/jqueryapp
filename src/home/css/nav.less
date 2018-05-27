@@ -1,9 +1,9 @@
-.home-menu {
+.home-nav {
   position: absolute;
   top: @home-header-height*2;
   left: 0;
   bottom: 0;
-  width: @home-menu-width;
+  width: @home-nav-width;
   z-index: 12;
   overflow: hidden;
   .a{
@@ -12,9 +12,10 @@
   > .wrapper {
     .menu {
       .a {
-        padding-left: @home-menu-width*0.2;
+        padding-left: @home-nav-width*0.2;
+        line-height: @home-header-height;
         &[state="active"] {
-          color: @home-header-a-color-active;
+          color: @home-header-a-active;
         }
       }
     }

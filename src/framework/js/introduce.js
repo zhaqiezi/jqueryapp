@@ -1,9 +1,9 @@
 ui.module('framework').add('introduce', {
     i18n: ui.i18n('zh', {
-        '/framework/introduce': '框架介绍',
+        '/framework/introduce': '框架介绍，设计初衷',
 
-        'framework-introduce-target': 'jQueryApp 的设计初衷',
-        'framework-introduce-welcome': '<section>' +
+        'framework-introduce-title': 'jQueryApp 的设计初衷',
+        'framework-introduce-content': '<section>' +
         '<p>前端中以页面为最终产出物的开发，涉及到PC界面，移动界面，单页面应用，nodejs与webkit相结合的应用程序界面，已有较多页面新特性的要求。</p>' +
         '<p>特性涉及到的技术包括样式，布局，图标，表单组件，交互组件，动效，路由，JS新语法，工程化流程等等，' +
         '所表现出来的跨界，混编，引入其他语言成熟的框架模式，都在推高对前端开发模式的要求。</p>' +
@@ -28,7 +28,7 @@ ui.module('framework').add('introduce', {
         '</section>' +
         '<header>保有核心优点，准备改变：</header>' +
         '<section>' +
-        '<p>jQuery做到了自己的理念“write less do more”，单就链式操作就充分体现了这一非常犀利且极具美感的系统理念。</p>' +
+        '<p>jQuery做到了自己的理念 write less do more，单就链式操作就充分体现了这一非常犀利且极具美感的系统理念。</p>' +
         '<p>当前各技术栈的最终产出物依然是页面，页面的解析依然是在浏览器里，浏览器内核依然遵守W3C标准，大家殊途同归。</p>' +
         '<p>既然在应用场景上没有本质的不适用，那么改良就是最好的出路。要改良哪些，要吸收新模式的哪些新特性，才能让开发者继续觉得简单又好用？</p>' +
         '</section>' +
@@ -42,11 +42,12 @@ ui.module('framework').add('introduce', {
         '</ul>' +
         '</section>' +
         '<header>jQueryApp做出的努力：</header>' +
-        '<>' +
-        '<p>立足前端的本职工作，为了能更好地产出符合需求的页面，我们建议项目立项，方案选型，技术预演，开发协作都能遵循一定的规范，达成明确的评审指标。jQueryApp力求满足其中的技术（性能）指标，预期达到有<span class="font green">丰富的界面表现层，简洁的代码逻辑层，模块化的项目结构。</span></p>' +
-        '<div><a class="a" href="/framework/feature">$/framework/feature$</a></div>' +
+        '<section>' +
+        '<p>立足前端基本的工作内容，更好地产出符合需求的页面，我们建议从项目立项，方案选型，技术预演，协作开发都应该遵循一定的设计规范，明确评审指标，需求方和开发方才能建立稳固的沟通基础，认同现有的开发结果，清晰未来的开发计划。</p>' +
+        '<p>jQueryApp协助实现这一良性的开发循环，从交互理论，代码效率，网络时间，页面性能等方面提供可参考的指标，预期达到<span class="font green">丰富的界面表现层，简洁的代码逻辑层，模块化的项目结构。</span></p>' +
+        '<p>希望得到其他jQuery爱好者的支持和帮助，组建一个5人的维护团队，让其他开发者能够继续 write less do more。</p>' +
         '</section>' +
-        '',
+        '<div class="m32-tb"><a class="btn" href="/framework/feature">查看jQueryApp已实现的特性</a></div>',
     }),
     router: ui.router({
         title: '/framework/introduce',
@@ -69,8 +70,8 @@ ui.module('framework').add('introduce', {
         var c = this.config;
 
         c.$element = ui('home').module([
-            ui('article').title($('<span>', {class: 'span'}).data('i18n', 'framework-introduce-target')),
-            ui('article').content($('<div>', {class: 'm16-tb'}).data('i18n', 'framework-introduce-welcome')),
+            ui('article').title($('<span>', {class: 'span'}).data('i18n', 'framework-introduce-title')),
+            ui('article').content($('<div>', {class: 'm16-tb'}).data('i18n', 'framework-introduce-content')),
         ]);
 
         ui.module('home.body').mount(c.$element);

@@ -22,7 +22,7 @@ ui.module('home').add('header', {
     html: function () {
         var c = this.config;
 
-        c.$element = $('<div>', {class: "home-header"}).html([
+        c.$element = $('<header>', {class: "home-header"}).html([
             $('<div>', {class: "wrapper"}).html([
                 c.$logo = this.htmlLogo(),
                 c.$menu = this.htmlMenu(),

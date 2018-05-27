@@ -1,6 +1,8 @@
 ui.module('framework').add('menu', {
     i18n: ui.i18n('zh', {
         'framework-introduce': '框架介绍',
+        'framework-feature': '框架特性',
+        'framework-mindmap': '框架脑图',
 
     }),
     routerEnd: function (location) {
@@ -31,9 +33,21 @@ ui.module('framework').add('menu', {
             }).data({
                 i18n: 'framework-introduce'
             }),
+            $('<a>', {
+                class: 'a',
+                href: '/framework/feature'
+            }).data({
+                i18n: 'framework-feature'
+            }),
+            $('<a>', {
+                class: 'a',
+                href: '/framework/mindmap'
+            }).data({
+                i18n: 'framework-mindmap'
+            }),
         ]);
 
-        ui.module('home.menu').mount(c.$element);
+        ui.module('home.nav').mount(c.$element);
     },
     on: function () {
         var c = this.config;

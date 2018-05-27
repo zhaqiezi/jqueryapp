@@ -20,7 +20,7 @@ const taskJsSrc = [
 
     path.join(__dirname, 'js/header.js'),
     path.join(__dirname, 'js/body.js'),
-    path.join(__dirname, 'js/menu.js'),
+    path.join(__dirname, 'js/nav.js'),
 
 ];
 exports.enable = true;

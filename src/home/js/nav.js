@@ -1,4 +1,4 @@
-ui.module('home').add('menu', {
+ui.module('home').add('nav', {
     init: function () {
         this.html();
         this.on();
@@ -11,7 +11,7 @@ ui.module('home').add('menu', {
     html: function () {
         var c = this.config;
 
-        c.$element = $('<div>', {class: "home-menu"}).html([
+        c.$element = $('<nav>', {class: "home-nav"}).html([
             c.$wrapper = $('<div>', {class: "wrapper"})
         ]);
         $('body').append(c.$element);

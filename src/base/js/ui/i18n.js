@@ -56,7 +56,7 @@ ui.i18n = $.extend(function (key, value) {
             value = value($element);
         } else if (ui.isString(value)) {
             // $systme$ 这样引用另外一个语言标签
-            value = value.replace(/\$([^$]*)\$/g, function (match, p1) {
+            value = value.replace(/\${2}([^$]*)\${2}/g, function (match, p1) {
                 return ui.i18n.get(p1);
             });
         }

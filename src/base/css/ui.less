@@ -24,9 +24,7 @@
 
 .font {
   cursor: inherit;
-  &.theme {
-    color: @theme-font;
-  }
+  color: @theme-font;
   &.gray {
     color: @gray-font;
   }
@@ -74,6 +72,13 @@
   font-size: 14px;
 }
 
+.btn {
+  .btn('theme');
+  &.green {
+    .btn('green');
+  }
+
+}
 
 .img {
   border: none;
