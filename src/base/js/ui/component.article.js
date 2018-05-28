@@ -1,4 +1,7 @@
 ui.add('article', {
+    i18n: ui.i18n('zh', {
+        'article-btn-go-back': '返回上一页'
+    }),
     title: function (html) {
 
         var $element = $('<div>', {class: 'ui-article-title'});
@@ -18,5 +21,9 @@ ui.add('article', {
         });
 
         return $element;
-    }
+    },
+    goBackBtn: function () {
+        return $('<div>', {class: 'btn gray'}).i18n('article-btn-go-back').click(window.history.back);
+    },
+
 })

@@ -6,7 +6,7 @@ ui.module('home').add('body', {
     html: function () {
         var c = this.config;
 
-        c.$element = $('<section>', {class: "home-body"}).html([
+        c.$element = $('<main>', {class: "home-body"}).html([
             c.$wrapper = $('<div>', {class: "wrapper"})
         ]);
 

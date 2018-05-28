@@ -3,7 +3,7 @@ ui.router = $.extend(function () {
     return self.add.apply(self, arguments);
 }, {
     i18n: ui.i18n('zh', {
-        'ui-router-page404': '<div class="f36 m36-b">$ui-router-page404-title$</div><div class="f24">OMG 页面不存在</div>',
+        'ui-router-page404': '<div class="f36 m36-b">$$ui-router-page404-title$$</div><div class="f24">OMG 页面不存在</div>',
         'ui-router-page404-title': '出错了',
         'ui-router-pjaxfail': '抱歉，相关组件加载失败，请点击确定重新加载！',
     }),
