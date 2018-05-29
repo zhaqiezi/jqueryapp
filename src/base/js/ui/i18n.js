@@ -55,7 +55,7 @@ ui.i18n = $.extend(function (key, value) {
         if (ui.isFunction(value)) {
             value = value($element);
         } else if (ui.isString(value)) {
-            // $systme$ 这样引用另外一个语言标签
+            // $$i18n$$ 这样引用另外一个语言标签
             value = value.replace(/\${2}([^$]*)\${2}/g, function (match, p1) {
                 return ui.i18n.get(p1);
             });
@@ -77,7 +77,6 @@ ui.i18n = $.extend(function (key, value) {
         if (!$dom) {
             $element = $('*');
         } else {
-            $dom = $($dom);
             translate($dom);
             $element = $dom.find('*');
         }
@@ -91,13 +90,12 @@ ui.i18n = $.extend(function (key, value) {
             if (!i18n) {
                 return;
             }
-            var html;
 
             if (ui.isString(i18n)) {
-                html = self.get(i18n, $this);
-                $this.html(html);
+                $this.html(self.get(i18n, $this));
             }
             if (ui.isJson(i18n)) {
+                var html;
                 for (var attr in i18n) {
                     var key = i18n[attr];
                     if (attr == 'html') {
@@ -138,9 +136,12 @@ ui.i18n = $.extend(function (key, value) {
 // 优先执行注入: 基于ui对$.fn.html的改写，添加对全局.html()事件的回调
 // 订阅新增的组件时对其进行语言翻译
 $.fn.html(ui.i18n.translate.bind(ui.i18n));
-$.fn.i18n = function (i18n) {
-    if(i18n){
-        this.data('i18n', i18n);
+$.fn.i18n = function (i18n, index) {
+    if (i18n) {
+        this.data({
+            'i18n':i18n,
+        });
+        this.data('i18n-index', index);
     }
     ui.i18n.translate(this);
     return this;

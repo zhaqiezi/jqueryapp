@@ -1,4 +1,4 @@
-;(function () {
+;(function ($) {
     var fnHtml = $.fn.html;
     var fnAppend = $.fn.append;
     var fnPrepend = $.fn.prepend;
@@ -33,4 +33,4 @@
         return rt;
     }
 
-})();
+})(jQuery);

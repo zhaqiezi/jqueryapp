@@ -18,10 +18,10 @@ const taskJsSrc = [
     path.join(__dirname, 'js/' + moduleName + '.js'),
 
     path.join(__dirname, 'js/menu.js'),
-    path.join(__dirname, 'js/plan.js'),
     path.join(__dirname, 'js/introduce.js'),
     path.join(__dirname, 'js/feature.js'),
     path.join(__dirname, 'js/mindmap.js'),
+    path.join(__dirname, 'js/plan.js'),
 
 ];
 exports.enable = true;

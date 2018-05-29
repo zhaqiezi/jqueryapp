@@ -10,7 +10,7 @@ ui.module('framework').add('introduce', {
                 '都在推高对前端开发模式的要求。</p>',
                 '<p>其中以数据驱动视图就是一种重要的新的设计模式，与传统模式相比，新模式强调构建内在机制，非常重视对数据的监听，引入组件生命周期，' +
                 '虚拟DOM对比等特性，让数据与视图建立了单向或者双向的关联，弱化了直接操作DOM元素的环节，让界面变得更加智能。</p>',
-            ]),
+            ]).click(function(){alert(4);}),
             $('<section>').html([
                 '<p>Angular，Vue，React是这种新模式的代表者（简称三大框架），jQuery则是传统模式的代表者（它依然定位于工具）。新旧模式的对比是开发模式的对比，' +
                 '得从各自的配套工具，开发效率，最终页面效果等维度对比，但就现状来说，拿三大框架的全家桶与只集成几项核心工具的jQuery做对比，是有失公平的，因为jQuery本身就没做Nodejs开发模式的衍生，' +
@@ -61,7 +61,7 @@ ui.module('framework').add('introduce', {
             $('<div>', {class: "m32-tb"}).html([
                 '<a class="btn m32-r" href="/framework/feature">查看jQueryApp已实现的特性</a>',
                 ui('article').goBackBtn()
-            ])
+            ]).on('click',function(){alert(43);})
         ],
     }),
     router: ui.router({
