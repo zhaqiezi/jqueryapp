@@ -1,42 +1,26 @@
 ui.add('article', {
     i18n: ui.i18n('zh', {
-        'ui-article-go-back': '返回上一页'
+        'ui-article-go-back': ''
     }),
-    title: function (html) {
-        return $('<div>', {class: 'ui-article-title'}).html(html);
+    header: function (json) {
+        return ui.component.one($('<div>', {class: 'ui-article-header'}), {
+            $word: $('<span>', {class: 'span'}).i18n(json.input),
+        }, json);
     },
-    content: function (html) {
-        return $('<div>', {class: 'ui-article-content'}).html(html);
+    main: function (arr) {
+        return $('<div>', {class: 'ui-article-main'}).html(arr);
     },
-    listWidthTitle: function (i18n) {
-        var $element = $('<section>', {class: 'ui-article-list-width-title'}).html([
-            $('<header>', {class: 'title'}).i18n(i18n, 0),
-
-            $('<ul>', {class: 'ul'}).html([
-                '<li></li>',
-                '<li></li>',
-                '<li></li>',
-                '<li></li>',
-                '<li></li>',
-                '<li></li>',
-                '<li></li>',
-                '<li></li>',
-                '<li></li>',
-            ]),
-        ])
-
-
-        return $element;
+    block: function (json) {
+        return ui.component.one($('<div>', {class: 'ui-article-block'}), {
+            $header: ui.isNull(json.header) ? null : $('<div>', {class: 'header'}).i18n(json.header),
+            $list: ui.isNull(json.list) ? null : $('<ul>', {class: 'list'}).html(json.list.map(function (item) {
+                return $('<li>').i18n(item);
+            })),
+        }, json);
     },
     goBackBtn: function () {
-
-        var $element = $('<div>', {class: 'btn gray'}).i18n('ui-article-go-back').on('click', function () {
-            alert(4);
-        });
-        return $element;
+        return $('<div>', {class: 'btn gray'}).i18n('返回上一页').on('click', window.history.back);
     },
 
 })
-// ui.component.one($element, {
-//     $wrapper: $('<div>', {class: 'wrapper'}).html(html),
-// });
+

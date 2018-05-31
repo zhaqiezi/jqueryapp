@@ -1,39 +1,40 @@
-.ui-article-title {
+.ui-article-header {
   .h2();
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid @border;
-
-  padding-top: 8px;
-  padding-bottom: 8px;
+  margin-left: @space;
+  margin-right: @space;
+  margin-top: @space-half;
+  margin-bottom: @space-half;
+  border-bottom: @space-half solid @border;
+  padding-top: @space-half;
+  padding-bottom: @space-half;
   color: @yellow-font;
 }
 
-.ui-article-content {
-  margin-left: 16px;
-  margin-right: 16px;
+.ui-article-main {
+  margin-left: @space;
+  margin-right: @space;
   font-size: @size13;
   line-height: @line-height;
-  header {
+
+}
+
+.ui-article-block {
+  padding: @space;
+  border-radius: @space-half;
+  margin-bottom: @space;
+  background-color: @content-back;
+  color: @content-font;
+  > .header {
     .f18();
     color: @font;
-    margin-bottom: 16px;
+    margin-bottom: @space;
   }
-  section {
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-    background-color: @content-back;
-    color: @content-font;
-  }
-  ul {
-    padding-left: 16px;
+  .list {
+    padding-left: @space;
 
   }
   p {
-    padding-bottom: 16px;
+    padding-bottom: @space;
   }
 
 }

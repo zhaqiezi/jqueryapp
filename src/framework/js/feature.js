@@ -3,7 +3,10 @@ ui.module('framework').add('feature', {
         '/framework/feature': '框架已实现的特性',
 
         'framework-feature-title': 'jQueryApp 已实现的特性',
-        'framework-feature-jquery': ['使用jQuery',[
+        'framework-feature-jquery': function () {
+            ui('article').title();
+        },
+        'framework-feature-jquery': ['使用jQuery', [
             '使用jQuery 3.3.1版本,保有官方所有特性',
             '使用$.Deferred',
             '使用$.Callbacks',
@@ -154,8 +157,24 @@ ui.module('framework').add('feature', {
         var c = this.config;
 
         c.$element = ui('home').module([
-            ui('article').title($('<span>', {class: 'span'}).data('i18n', 'framework-feature-title')),
-            ui('article').content($('<div>', {class: 'm16-tb'}).data('i18n', 'framework-feature-content')),
+            ui('article').header({input: 'jQueryApp 已实现的特性'}),
+            ui('article').main([
+                ui('article').block({
+                    header: '使用jQuery',
+                    list: [
+                        '使用jQuery 3.3.1版本,保有官方所有特性',
+                        '使用$.Deferred',
+                        '使用$.Callbacks',
+                        '改写源码$()环节,提升性能',
+                        '改写源码$.fn.html()环节,增加订阅,组件化jQuery对象',
+                        '改写源码$.ajax环节,支持获取xhr对象',
+                        '使用$(tag, attr).html(arr)格式进行对象化',
+                        '依然支持jQuery系列插件',
+                        '依然支持JS原生语法插件',
+                    ]
+                }),
+                ui('article').goBackBtn(),
+            ]),
         ]);
 
         ui.module('home.body').mount(c.$element);

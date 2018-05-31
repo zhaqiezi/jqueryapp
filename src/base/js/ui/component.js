@@ -8,21 +8,21 @@ ui.component = $.extend(function (name, args) {
     global: {}
 }, {
     one: function ($element, children, args) {
-        var html;
+        var $html = $([]);
 
         if (ui.isArray(args)) {
-            html = args;
-        } else {
+            $html = args;
+        } else if (ui.isJson(args)) {
             $.extend(children, args);
+        }
 
-            html=[];
-            for (var $el in children) {
-                if (ui.isJquery(children[$el])) {
-                    html.push(children[$el])
-                }
+        for (var key in children) {
+            var $ele = children[key];
+            if (ui.isJquery($ele)) {
+                $.merge($html, $ele);
             }
         }
-        $element.html(html);
+        $element.html($html);
 
         return $element;
 
