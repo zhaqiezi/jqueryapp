@@ -26,6 +26,7 @@ const taskJsSrc = [
     path.join(__dirname, 'js/jquery.js'),
     path.join(__dirname, 'js/jquery.html.js'),
     path.join(__dirname, 'js/jquery.position.js'),
+    path.join(__dirname, 'js/md5.js'),
     path.join(__dirname, 'js/ui/ui.js'),
     path.join(__dirname, 'js/ui/array.js'),
     path.join(__dirname, 'js/ui/component.js'),

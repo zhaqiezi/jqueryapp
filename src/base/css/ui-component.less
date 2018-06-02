@@ -1,40 +1,71 @@
-.ui-article-header {
+.ui-article-title {
   .h2();
-  margin-left: @space;
-  margin-right: @space;
-  margin-top: @space-half;
-  margin-bottom: @space-half;
-  border-bottom: @space-half solid @border;
   padding-top: @space-half;
   padding-bottom: @space-half;
+  margin-left: @space;
+  margin-right: @space;
+  margin-bottom: @space;
+  border-bottom: 1px solid @border;
   color: @yellow-font;
 }
 
-.ui-article-main {
+.ui-article-content {
   margin-left: @space;
   margin-right: @space;
+  margin-bottom: @space;
   font-size: @size13;
   line-height: @line-height;
-
+  p {
+    padding-bottom: @space;
+  }
 }
 
 .ui-article-block {
+  .header {
+    .f18();
+    color: @font;
+    margin-bottom: @space;
+    margin-top: 32px;
+  }
+  > .content {
+    padding: @space-x2;
+    margin-bottom: @space;
+    border-radius: @space-half;
+    background-color: @content-back;
+    color: @content-font;
+  }
+  > .ul {
+    padding: @space-x2;
+    margin-bottom: @space;
+    border-radius: @space-half;
+    background-color: @content-back;
+    color: @content-font;
+    list-style: inside;
+  }
+  .font-color();
+  &.inside {
+    > .ul {
+      padding: 0;
+      border-radius: 0;
+      background: none;
+      color: inherit;
+    }
+  }
+}
+
+.ui-article-list {
   padding: @space;
-  border-radius: @space-half;
   margin-bottom: @space;
+  border-radius: @space-half;
   background-color: @content-back;
   color: @content-font;
-  > .header {
+  .header {
     .f18();
     color: @font;
     margin-bottom: @space;
   }
-  .list {
-    padding-left: @space;
-
+  > .ul {
+    padding-left: @space-half;
+    list-style: inside;
   }
-  p {
-    padding-bottom: @space;
-  }
-
 }
