@@ -33,7 +33,6 @@ ui.module('home').add('header', {
     },
     htmlLogo: function () {
         return $('<div>', {class: "logo"}).html([
-            $('<div>', {class: 'img'}),
             $('<a>', {
                 class: 'a logoname',
                 href: '/'

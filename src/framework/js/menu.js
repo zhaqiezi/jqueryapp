@@ -30,21 +30,15 @@ ui.module('framework').add('menu', {
             $('<a>', {
                 class: 'a',
                 href: '/framework/introduce'
-            }).data({
-                i18n: 'framework-introduce'
-            }),
+            }).i18n('framework-introduce'),
             $('<a>', {
                 class: 'a',
                 href: '/framework/feature'
-            }).data({
-                i18n: 'framework-feature'
-            }),
+            }).i18n('framework-feature'),
             $('<a>', {
                 class: 'a',
                 href: '/framework/mindmap'
-            }).data({
-                i18n: 'framework-mindmap'
-            }),
+            }).i18n('framework-mindmap'),
         ]);
 
         ui.module('home.nav').mount(c.$element);

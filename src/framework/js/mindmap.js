@@ -1,13 +1,18 @@
 ui.module('framework').add('mindmap', {
     i18n: ui.i18n('zh', {
-        '/framework/mindmap': '框架已实现的特性',
+        '/framework/mindmap': '框架结构脑图',
 
-        'framework-mindmap-title': 'jQueryApp 长期计划',
-        'framework-mindmap-content': '<section>' +
+        'framework-mindmap-title': 'jQueryApp 结构脑图',
+        'framework-mindmap-content': function () {
+            return [
+                ui('framework').mindmapView(),
+                $('<div>', {class: "m32-tb"}).html([
+                    '<a class="btn m32-r" href="/framework/plan">查看jQueryApp当前开发计划</a>',
+                    ui('article').goBackBtn()
+                ])
+            ]
 
-        '</section>' +
-        '<div class="m32-tb"><a class="btn" href="/framework/plan">查看jQueryApp当前开发计划</a></div>',
-
+        }
     }),
     router: ui.router({
         title: '/framework/mindmap',
@@ -30,8 +35,8 @@ ui.module('framework').add('mindmap', {
         var c = this.config;
 
         c.$element = ui('home').module([
-            ui('article').title($('<span>', {class: 'span'}).data('i18n', 'framework-mindmap-title')),
-            ui('article').content($('<div>', {class: 'm16-tb'}).data('i18n', 'framework-mindmap-content')),
+            ui('article').title('framework-mindmap-title'),
+            ui('article').content('framework-mindmap-content'),
         ]);
 
         ui.module('home.body').mount(c.$element);
