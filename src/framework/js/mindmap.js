@@ -37,7 +37,7 @@ ui.module('framework').add('mindmap', {
         c.$element = ui('home').module([
             ui('article').title('framework-mindmap-title'),
             ui('article').content('framework-mindmap-content'),
-        ]);
+        ]).addClass('framework-mindmap-c');
 
         ui.module('home.body').mount(c.$element);
     },

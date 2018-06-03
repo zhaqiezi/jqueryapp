@@ -3,17 +3,29 @@ ui.module('framework').add('plan', {
         '/framework/plan': '开发计划',
 
         'framework-plan-header': '开发计划',
-        'framework-plan-content': function () {
+        'framework-plan-api-doc': function () {
             return [
+                $('<div>', {class: 'f18 m16-tb'}).html('更新API文档'),
                 ui('article').list({
-                    header: '完善多语言机制',
-                    content: [
-                        '需要先确定机制和规则',
-                    ]
+                    header: '模块JS',
+                    content: []
                 }),
-                $('<div>', {class: "m32-tb"}).html([
-                    ui('article').goBackBtn()
-                ]),
+
+            ];
+
+        },
+        'framework-plan-api-test': function () {
+            return [
+                $('<div>', {class: 'f18 m16-tb'}).html('新功能测试及修复Bug'),
+                ui('article').list({
+                    header: [
+                        '<p>问题收集及新功能的讨论请查看<a class="a p10-rl" href="https://github.com/pageborn/jqueryapp/issues" target="_blank">Github Issue</a></p>',
+                        '<p>API在线测试及功能Demo演示请查看<a class="a p10-rl" href="https://codepen.io/jqueryapp/project/full/DBjkyd/" target="_blank">CodePen Test</a></p>'
+                    ],
+                    content: []
+                    //
+                }),
+
             ];
 
         },
@@ -40,8 +52,19 @@ ui.module('framework').add('plan', {
 
         c.$element = ui('home').module([
             ui('article').title('framework-plan-header'),
-            ui('article').content('framework-plan-content'),
-        ]);
+            $('<div>', {class: 'row row-one'}).html([
+                $('<div>', {class: 'col6 col-half'}).html([
+                    ui('article').content('framework-plan-api-doc'),
+                ]),
+                $('<div>', {class: 'col6 col-half'}).html([
+                    ui('article').content('framework-plan-api-test'),
+                ])
+
+            ]),
+            $('<div>', {class: "m32-tb"}).html([
+                ui('article').goBackBtn()
+            ]),
+        ]).addClass('framework-plan-c');
         ui.module('home.body').mount(c.$element);
     },
     on: function () {
