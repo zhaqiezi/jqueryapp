@@ -17,6 +17,10 @@ ui.module('home', {
                 '/css/framework.css',
                 '/js/framework.js'
             ],
+            'js': [
+                '/css/js.css',
+                '/js/js.js'
+            ],
         }
     },
 

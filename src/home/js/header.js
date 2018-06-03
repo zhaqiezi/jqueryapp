@@ -65,7 +65,7 @@ ui.module('home').add('header', {
             }),
             $('<a>', {
                 class: 'a',
-                href: '/js/point'
+                href: '/js/doc'
             }).data({
                 i18n: 'home-header-js'
             }),
