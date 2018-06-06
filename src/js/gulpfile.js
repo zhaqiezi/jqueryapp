@@ -19,7 +19,9 @@ const taskJsSrc = [
 
     path.join(__dirname, 'js/menu.js'),
     path.join(__dirname, 'js/index.js'),
-    path.join(__dirname, 'js/doc.js'),
+    path.join(__dirname, 'js/function.js'),
+    path.join(__dirname, 'js/component.js'),
+    path.join(__dirname, 'js/module.js'),
 
 ];
 exports.enable = true;

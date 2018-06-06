@@ -37,14 +37,15 @@ ui.module('framework').add('feature', {
                 ui('article').block({
                     header: '支持单页面应用（SPA）',
                     list: [
-                        '支持SPA生命周期',
+                        '支持任何SPA项目首屏js包非gzip模式控制在200k以内',
+                        '支持视图的生命周期',
                         '支持SPA路由',
+                        '支持路由正则',
                         '支持路由的订阅和广播',
                         '支持路由下的多语言',
                         '支持路由下的原生history操作',
                         '支持路由规则404',
                         '支持路由URL与模块的关联配置',
-                        '支持路由正则',
                         '支持多页面共享sessionStorage',
                     ]
                 }),
