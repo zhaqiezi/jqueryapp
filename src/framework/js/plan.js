@@ -7,8 +7,10 @@ ui.module('framework').add('plan', {
             return [
                 $('<div>', {class: 'f18 m16-tb'}).html('更新API文档'),
                 ui('article').list({
-                    header: '模块JS',
-                    content: []
+                    header: '2018-06-07 模块JS',
+                    content: [
+                        '<i class="i-frown-o"></i><span class="word">计划完成文档界面布局和常规功能</span>'
+                    ]
                 }),
 
             ];
@@ -19,8 +21,8 @@ ui.module('framework').add('plan', {
                 $('<div>', {class: 'f18 m16-tb'}).html('新功能测试及修复Bug'),
                 ui('article').list({
                     header: [
-                        '<p>问题收集及新功能的讨论请查看<a class="a p10-rl" href="https://github.com/pageborn/jqueryapp/issues" target="_blank">Github Issue</a></p>',
-                        '<p>API在线测试及功能Demo演示请查看<a class="a p10-rl" href="https://codepen.io/jqueryapp/project/full/DBjkyd/" target="_blank">CodePen Test</a></p>'
+                        '<p><labe class="label p10-r">问题收集及新功能的讨论请查看</labe><a class="a p10-r" href="https://github.com/pageborn/jqueryapp/issues" target="_blank">Github Issue</a></p>',
+                        '<p><labe class="label p10-r">API在线测试及功能Demo演示请查看</labe><a class="a p10-r" href="https://codepen.io/jqueryapp/project/full/DBjkyd/" target="_blank">CodePen Test</a></p>'
                     ],
                     content: []
                     //
@@ -61,7 +63,7 @@ ui.module('framework').add('plan', {
                 ])
 
             ]),
-            $('<div>', {class: "m32-tb"}).html([
+            $('<div>', {class: "m16-t"}).html([
                 ui('article').goBackBtn()
             ]),
         ]).addClass('framework-plan-c');
