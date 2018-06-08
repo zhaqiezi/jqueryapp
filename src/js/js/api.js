@@ -1,13 +1,11 @@
-ui.module('js').add('index', {
+ui.module('js').add('api', {
     i18n: ui.i18n('zh', {
-        '/js/index': '开发计划',
-
-
+        '/js/api': '算法和工具类文档',
 
     }),
     router: ui.router({
-        title: '/js/index',
-        path: '/js/index',
+        title: '/js/api',
+        path: '/js/api',
     }),
     routerEnd: function (location) {
         if (location.pathname !== this.router.path) {
@@ -26,8 +24,12 @@ ui.module('js').add('index', {
         var c = this.config;
 
         c.$element = ui('home').module([
+            c.$header = $('<div>', {class: 'header'}),
+            c.$menu = $('<div>', {class: 'menu'}),
+            c.$content = $('<div>', {class: 'content'}),
 
-        ]).addClass('js-index-c');
+        ]).addClass('js-api-c');
+
         ui.module('home.body').mount(c.$element);
     },
     on: function () {
@@ -35,5 +37,6 @@ ui.module('js').add('index', {
 
 
     },
+    component: {}
 
 });

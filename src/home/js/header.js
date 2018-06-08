@@ -1,7 +1,7 @@
 ui.module('home').add('header', {
     i18n: ui.i18n('zh', {
         'home-header-logoname': 'jQueryApp',
-        'home-header-plan': '开发计划',
+        'home-header-framework': '开发计划',
         'home-header-spa': '异步SPA',
         'home-header-css': '组件CSS',
         'home-header-js': '模块JS',
@@ -47,19 +47,19 @@ ui.module('home').add('header', {
         return $('<div>', {class: "menu"}).html([
             $('<a>', {
                 class: 'a',
-                href: '/framework/plan'
-            }).i18n('home-header-plan'),
+                href: '/framework'
+            }).i18n('home-header-framework'),
             $('<a>', {
                 class: 'a',
                 href: '/spa'
             }).i18n('home-header-spa'),
             $('<a>', {
                 class: 'a',
-                href: '/css/point'
+                href: '/css'
             }).i18n('home-header-css'),
             $('<a>', {
                 class: 'a',
-                href: '/js/doc'
+                href: '/js'
             }).i18n('home-header-js'),
             $('<a>', {
                 class: 'a',
@@ -67,7 +67,7 @@ ui.module('home').add('header', {
             }).i18n('home-header-ui'),
             $('<a>', {
                 class: 'a',
-                href: '/ui/component'
+                href: '/component'
             }).i18n('home-header-ui-component'),
 
         ]);

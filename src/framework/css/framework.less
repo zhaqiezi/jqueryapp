@@ -1,6 +1,18 @@
 @import "../../_config/theme";
 @import "../../_config/mixins";
 
+
+.framework-c {
+  .row-one {
+    height: ~'calc(100vh - 175px)';
+    .col-half {
+      height: 100%;
+      overflow: auto;
+    }
+  }
+}
+
+
 .framework-mindmap-c {
   .iframe {
     margin-top: 32px;
@@ -11,13 +23,5 @@
   }
 }
 
-.framework-plan-c {
-  .row-one {
-    height: ~'calc(100vh - 175px)';
-    .col-half {
-      height: 100%;
-      overflow: auto;
-    }
-  }
-}
+
 
