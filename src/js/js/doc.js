@@ -1,13 +1,13 @@
-ui.module('js').add('function', {
+ui.module('js').add('doc', {
     i18n: ui.i18n('zh', {
-        '/js/function': '算法和工具库文档',
+        '/js/doc': '算法和工具类文档',
 
 
 
     }),
     router: ui.router({
-        title: '/js/function',
-        path: '/js/function',
+        title: '/js/doc',
+        path: '/js/doc',
     }),
     routerEnd: function (location) {
         if (location.pathname !== this.router.path) {
@@ -27,7 +27,7 @@ ui.module('js').add('function', {
 
         c.$element = ui('home').module([
 
-        ]).addClass('js-function-c');
+        ]).addClass('js-doc-c');
 
         ui.module('home.body').mount(c.$element);
     },

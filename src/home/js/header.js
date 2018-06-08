@@ -48,39 +48,27 @@ ui.module('home').add('header', {
             $('<a>', {
                 class: 'a',
                 href: '/framework/plan'
-            }).data({
-                i18n: 'home-header-plan'
-            }),
+            }).i18n('home-header-plan'),
             $('<a>', {
                 class: 'a',
                 href: '/spa'
-            }).data({
-                i18n: 'home-header-spa'
-            }),
+            }).i18n('home-header-spa'),
             $('<a>', {
                 class: 'a',
                 href: '/css/point'
-            }).data({
-                i18n: 'home-header-css'
-            }),
+            }).i18n('home-header-css'),
             $('<a>', {
                 class: 'a',
                 href: '/js/doc'
-            }).data({
-                i18n: 'home-header-js'
-            }),
+            }).i18n('home-header-js'),
             $('<a>', {
                 class: 'a',
                 href: '/ui'
-            }).data({
-                i18n: 'home-header-ui'
-            }),
+            }).i18n('home-header-ui'),
             $('<a>', {
                 class: 'a',
                 href: '/ui/component'
-            }).data({
-                i18n: 'home-header-ui-component'
-            }),
+            }).i18n('home-header-ui-component'),
 
         ]);
     },

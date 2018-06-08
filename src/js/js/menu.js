@@ -1,8 +1,8 @@
 ui.module('js').add('menu', {
     i18n: ui.i18n('zh', {
-        'js-function': '算法及工具库',
-        'js-component': 'UI及自定义组件',
-        'js-module': 'SPA及流程模块',
+        'js-doc-ui': '算法和工具',
+        'js-doc-ui-component': 'UI组件',
+        'js-doc-ui-module': 'UI模块',
     }),
     routerEnd: function (location) {
         var c = this.config;
@@ -29,15 +29,15 @@ ui.module('js').add('menu', {
             $('<a>', {
                 class: 'a',
                 href: '/js/function'
-            }).i18n('js-function'),
+            }).i18n('js-doc-ui'),
             $('<a>', {
                 class: 'a',
                 href: '/js/component'
-            }).i18n('js-component'),
+            }).i18n('js-doc-ui-component'),
             $('<a>', {
                 class: 'a',
                 href: '/js/module'
-            }).i18n('js-module'),
+            }).i18n('js-doc-ui-module'),
         ]);
 
         ui.module('home.nav').mount(c.$element);
