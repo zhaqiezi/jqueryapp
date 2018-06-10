@@ -17,9 +17,9 @@ ui.module('home', {
                 '/css/framework.css',
                 '/js/framework.js'
             ],
-            'js': [
-                '/css/js.css',
-                '/js/js.js'
+            'api': [
+                '/css/api.css',
+                '/js/api.js'
             ],
         }
     },

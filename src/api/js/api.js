@@ -1,12 +1,12 @@
 'use strict'
-ui.module('js', {
+ui.module('api', {
     i18n: ui.i18n('zh', {
-        '/js': '模块JS相关文档',
+        '/api': '模块JS相关文档',
 
     }),
     router: ui.router({
-        title: '/js',
-        path: '/js',
+        title: '/api',
+        path: '/api',
     }),
     start: function () {
         this.html();

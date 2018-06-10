@@ -73,3 +73,28 @@
     list-style: inside;
   }
 }
+
+.ui-article-search {
+  height: 100%;
+  > .header {
+    text-align: right;
+    height: @space-x2;
+    .input {
+      border: none;
+      background: none;
+      outline: none;
+      border-bottom: 1px solid @border;
+      line-height: @line-height;
+      color: @theme-font;
+    }
+  }
+  > .content {
+    position: relative;
+    height: ~'calc(100% - @{space-x2})';
+    padding: @space-x2;
+    margin-bottom: @space;
+    background-color: @content-back;
+    color: @content-font;
+
+  }
+}

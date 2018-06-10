@@ -12,17 +12,13 @@ const replace = require('gulp-replace');
 
 
 // 需要配置的内容
-const moduleName = 'js';
+const moduleName = 'api';
 const moduleDist = path.join(__dirname, '../../dist');
 const taskJsSrc = [
     path.join(__dirname, 'js/' + moduleName + '.js'),
 
     path.join(__dirname, 'js/menu.js'),
-    path.join(__dirname, 'js/index.js'),
     path.join(__dirname, 'js/api.js'),
-    path.join(__dirname, 'js/api/*.js'),
-    path.join(__dirname, 'js/component.js'),
-    path.join(__dirname, 'js/module.js'),
 
 ];
 exports.enable = true;

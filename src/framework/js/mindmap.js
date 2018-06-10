@@ -5,7 +5,7 @@ ui.module('framework').add('mindmap', {
         'framework-mindmap-title': 'jQueryApp 结构脑图',
         'framework-mindmap-content': function () {
             return [
-                ui('framework').mindmapView(),
+                $('<div>', {class: "image"}),
                 $('<div>', {class: "m32-tb"}).html([
                     '<a class="btn m32-r" href="/framework/plan">查看jQueryApp当前开发计划</a>',
                     ui('article').goBackBtn()

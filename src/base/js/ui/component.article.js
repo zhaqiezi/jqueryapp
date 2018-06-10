@@ -33,6 +33,14 @@ ui.add('article', {
             window.history.back();
         });
     },
+    search: function (json) {
+        return ui.component.one($('<div>', {class: 'ui-article-search'}), {
+            $header: ui.component.one($('<div>', {class: 'header'}), {
+                $input: $('<input>', {class: 'input'})
+            }),
+            $content: $('<div>', {class: 'content'}),
+        }, json);
+    }
 
 })
 

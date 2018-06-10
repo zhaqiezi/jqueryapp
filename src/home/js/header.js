@@ -2,11 +2,7 @@ ui.module('home').add('header', {
     i18n: ui.i18n('zh', {
         'home-header-logoname': 'jQueryApp',
         'home-header-framework': '开发计划',
-        'home-header-spa': '异步SPA',
-        'home-header-css': '组件CSS',
-        'home-header-js': '模块JS',
-        'home-header-ui': '过程UI',
-        'home-header-ui-component': 'UI组件',
+        'home-header-api': 'API文档',
         'home-header-i18n': '多语言',
     }),
     init: function () {
@@ -51,25 +47,8 @@ ui.module('home').add('header', {
             }).i18n('home-header-framework'),
             $('<a>', {
                 class: 'a',
-                href: '/spa'
-            }).i18n('home-header-spa'),
-            $('<a>', {
-                class: 'a',
-                href: '/css'
-            }).i18n('home-header-css'),
-            $('<a>', {
-                class: 'a',
-                href: '/js'
-            }).i18n('home-header-js'),
-            $('<a>', {
-                class: 'a',
-                href: '/ui'
-            }).i18n('home-header-ui'),
-            $('<a>', {
-                class: 'a',
-                href: '/component'
-            }).i18n('home-header-ui-component'),
-
+                href: '/api'
+            }).i18n('home-header-api'),
         ]);
     },
     htmlRight: function () {

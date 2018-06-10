@@ -1,9 +1,7 @@
-ui.module('js').add('menu', {
+ui.module('api').add('menu', {
     i18n: ui.i18n('zh', {
-        'js-api': 'API文档',
-        'js-component': '对象化组件',
-        'js-plugin': '精选插件',
-        'js-module': 'SPA模块',
+        'api-ui': 'ui对象',
+        'api-ui-is': 'ui.is',
     }),
     routerEnd: function (location) {
         var c = this.config;
@@ -29,20 +27,13 @@ ui.module('js').add('menu', {
         c.$element = $('<div>', {class: "menu"}).html([
             $('<a>', {
                 class: 'a',
-                href: '/js/api'
-            }).i18n('js-api'),
+                href: '/api/ui'
+            }).i18n('api-ui'),
             $('<a>', {
                 class: 'a',
-                href: '/js/component'
-            }).i18n('js-component'),
-            $('<a>', {
-                class: 'a',
-                href: '/js/plugin'
-            }).i18n('js-plugin'),
-            $('<a>', {
-                class: 'a',
-                href: '/js/module'
-            }).i18n('js-module'),
+                href: '/api/ui/is'
+            }).i18n('api-ui-is'),
+
         ]);
 
         ui.module('home.nav').mount(c.$element);
