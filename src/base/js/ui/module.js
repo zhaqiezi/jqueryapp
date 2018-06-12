@@ -14,9 +14,14 @@ ui.module = $.extend(function (name, args) {
             i18n: false,
             router: false,
             routerStart: ui.emptyFunction,
-            routerEnd: ui.emptyFunction,
-            mount: ui.emptyFunction,
-            unmount: ui.emptyFunction,
+            routerEnd: function (location) {
+                if (location.pathname !== this.router.path) {
+                    this.unmount();
+                    return false;
+                }
+
+                this.start.bind(this)();
+            },
             init: function () {
                 var s = this.state;
 
@@ -36,18 +41,23 @@ ui.module = $.extend(function (name, args) {
                 s.initCallbacks.add(fn);
             },
             start: function () {
-                // 模块被使用
-                this.startCallbacks.fire();
-
-                this.startEnd();
+                this.html();
+                this.on();
             },
-            startEnd: ui.emptyFunction,
-            addStart: function (fn) {
-                var s = this.state;
+            mount: function ($html) {
+                var c = this.config;
 
-                s.startCallbacks.add(fn);
+                if (c.$wrapper) {
+                    c.$wrapper.html($html);
+                }
             },
+            unmount: function () {
+                var c = this.config;
 
+                if (c.$element) {
+                    c.$element.remove();
+                }
+            },
         }, args, {
             state: $.extend({
                 initCallbacks: $.Callbacks('once unique'),
@@ -73,22 +83,9 @@ ui.module = $.extend(function (name, args) {
                 // 回传给父级，挂载此自组件，以便使用
                 this.$$children[name] = module;
 
+                // 可集中初始化
                 this.addInit(module.init.bind(module));
 
-            },
-            mount: function ($html) {
-                var c = this.config;
-
-                if (c.$wrapper) {
-                    c.$wrapper.html($html);
-                }
-            },
-            unmount: function () {
-                var c = this.config;
-
-                if (c.$element) {
-                    c.$element.remove();
-                }
             },
             isMounted: function ($html) {
                 var c = this.config;

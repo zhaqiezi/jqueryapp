@@ -37,19 +37,6 @@ ui.module('framework', {
         title: '/framework',
         path: '/framework',
     }),
-    routerEnd: function (location) {
-        if (location.pathname !== this.router.path) {
-            this.unmount();
-            return false;
-        }
-
-        this.start();
-
-    },
-    start: function () {
-        this.html();
-        this.on();
-    },
     html: function () {
         var c = this.config;
 

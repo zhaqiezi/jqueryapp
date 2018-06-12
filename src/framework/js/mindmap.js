@@ -18,19 +18,6 @@ ui.module('framework').add('mindmap', {
         title: '/framework/mindmap',
         path: '/framework/mindmap',
     }),
-    routerEnd: function (location) {
-        if (location.pathname !== this.router.path) {
-            this.unmount();
-            return false;
-        }
-
-        this.start();
-
-    },
-    start: function () {
-        this.html();
-        this.on();
-    },
     html: function () {
         var c = this.config;
 

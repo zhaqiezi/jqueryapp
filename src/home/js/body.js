@@ -1,5 +1,6 @@
 ui.module('home').add('body', {
     init: function () {
+        debugger
         this.html();
         this.on();
     },

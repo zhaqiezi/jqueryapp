@@ -1,7 +1,6 @@
 ui.module('api').add('menu', {
     i18n: ui.i18n('zh', {
-        'api-ui': 'ui对象',
-        'api-ui-is': 'ui.is',
+        'api-ui': 'ui工具',
     }),
     routerEnd: function (location) {
         var c = this.config;
@@ -29,10 +28,6 @@ ui.module('api').add('menu', {
                 class: 'a',
                 href: '/api/ui'
             }).i18n('api-ui'),
-            $('<a>', {
-                class: 'a',
-                href: '/api/ui/is'
-            }).i18n('api-ui-is'),
 
         ]);
 
