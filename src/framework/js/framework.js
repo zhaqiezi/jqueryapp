@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 ui.module('framework', {
     i18n: ui.i18n('zh', {
         '/framework': '开发计划',
@@ -37,6 +37,14 @@ ui.module('framework', {
         title: '/framework',
         path: '/framework',
     }),
+    routerEnd: function (location) {
+        if (location.pathname !== this.router.path) {
+            this.unMount();
+            return false;
+        }
+        this.html();
+        this.on();
+    },
     html: function () {
         var c = this.config;
 
@@ -58,7 +66,6 @@ ui.module('framework', {
         ui.module('home.body').mount(c.$element);
     },
     on: function () {
-        var c = this.config;
 
 
     },

@@ -13,7 +13,6 @@ ui.module('home').add('header', {
         var c = this.config;
 
         ui.menu.active(c.$menu, location.url);
-
     },
     html: function () {
         var c = this.config;
@@ -38,8 +37,6 @@ ui.module('home').add('header', {
         ]);
     },
     htmlMenu: function () {
-        var c = this.config;
-
         return $('<div>', {class: "menu"}).html([
             $('<a>', {
                 class: 'a',
@@ -52,8 +49,6 @@ ui.module('home').add('header', {
         ]);
     },
     htmlRight: function () {
-        var c = this.config;
-
         return $('<div>', {class: "right"}).html([
             $('<a>', {
                 class: "a",
@@ -64,7 +59,6 @@ ui.module('home').add('header', {
         ]);
     },
     on: function () {
-        var c = this.config;
 
 
     },

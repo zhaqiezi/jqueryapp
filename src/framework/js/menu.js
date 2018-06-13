@@ -10,7 +10,7 @@ ui.module('framework').add('menu', {
         var s = this.state;
 
         if (location.module !== c.module) {
-            this.unmount();
+            this.unMount();
             return false;
         }
 

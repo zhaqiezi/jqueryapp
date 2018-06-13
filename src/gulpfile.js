@@ -115,7 +115,6 @@ const publishTask = function (environmentName) {
     setTimeout(function () {
         gulp.src(entryHtml)
             .pipe(replace(/(src|href)=["']?([^"']+)["']?/g, function (match, p0, p1) {
-
                 let length = p1.indexOf('?');
                 var address = p1;
                 if (length != -1) {
@@ -143,12 +142,6 @@ const publishTask = function (environmentName) {
 
         pump([
             gulp.src(entryJs),
-            replace(new RegExp(package.environment.develop.api, 'g'), function () {
-                return publishEnvironment.api;
-            }),
-            replace(new RegExp(package.environment.develop.host, 'g'), function () {
-                return publishEnvironment.host;
-            }),
             replace(/["'](\/(css|js)[^"']+\.(css|js))["']/g, function (match, p1) {
                 console.log(match, p1);
                 let length = p1.indexOf('?');
@@ -167,7 +160,13 @@ const publishTask = function (environmentName) {
             }),
             uglify(),
             gulp.dest(publishJs)
-        ]);
+        ],function(err) {
+            if(!err){
+                console.log('success');
+            }else{
+                console.error('Error: ', err);
+            }
+        });
     }, 3000);
 }
 

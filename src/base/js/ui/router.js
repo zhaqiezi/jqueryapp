@@ -44,11 +44,12 @@ ui.router = $.extend(function () {
 
         // SPA方式，需要全局接管标签<a>链接的点击事件
         $(document).on('click', 'a[href]:not([target="_blank"]):not([download])', function (e) {
+            // 阻断原生
+            e.preventDefault();
+
             var href = $(this).attr('href');
             if (self.isLegal(href)) {
                 self.pjax();
-                // 阻断原生
-                e.preventDefault();
             }
         });
 

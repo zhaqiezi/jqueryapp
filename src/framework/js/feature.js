@@ -130,6 +130,14 @@ ui.module('framework').add('feature', {
         title: '/framework/feature',
         path: '/framework/feature',
     }),
+    routerEnd: function (location) {
+        if (location.pathname !== this.router.path) {
+            this.unMount();
+            return false;
+        }
+        this.html();
+        this.on();
+    },
     html: function () {
         var c = this.config;
 
@@ -140,12 +148,10 @@ ui.module('framework').add('feature', {
 
         ui.module('home.body').mount(c.$element);
     },
-
     on: function () {
         var c = this.config;
 
 
     },
-
 
 });

@@ -1,7 +1,6 @@
 ui.module('framework').add('mindmap', {
     i18n: ui.i18n('zh', {
         '/framework/mindmap': '框架结构脑图',
-
         'framework-mindmap-title': 'jQueryApp 结构脑图',
         'framework-mindmap-content': function () {
             return [
@@ -18,6 +17,14 @@ ui.module('framework').add('mindmap', {
         title: '/framework/mindmap',
         path: '/framework/mindmap',
     }),
+    routerEnd: function (location) {
+        if (location.pathname !== this.router.path) {
+            this.unMount();
+            return false;
+        }
+        this.html();
+        this.on();
+    },
     html: function () {
         var c = this.config;
 
@@ -30,7 +37,6 @@ ui.module('framework').add('mindmap', {
     },
 
     on: function () {
-        var c = this.config;
 
 
     },

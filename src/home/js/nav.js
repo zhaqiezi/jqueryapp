@@ -5,6 +5,7 @@ ui.module('home').add('nav', {
     },
     routerEnd: function (location) {
         var c = this.config;
+
         ui.menu.active(c.$element, location.url);
 
     },

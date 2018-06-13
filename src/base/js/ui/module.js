@@ -14,14 +14,7 @@ ui.module = $.extend(function (name, args) {
             i18n: false,
             router: false,
             routerStart: ui.emptyFunction,
-            routerEnd: function (location) {
-                if (location.pathname !== this.router.path) {
-                    this.unmount();
-                    return false;
-                }
-
-                this.start.bind(this)();
-            },
+            routerEnd: ui.emptyFunction,
             init: function () {
                 var s = this.state;
 
@@ -40,10 +33,6 @@ ui.module = $.extend(function (name, args) {
 
                 s.initCallbacks.add(fn);
             },
-            start: function () {
-                this.html();
-                this.on();
-            },
             mount: function ($html) {
                 var c = this.config;
 
@@ -51,7 +40,7 @@ ui.module = $.extend(function (name, args) {
                     c.$wrapper.html($html);
                 }
             },
-            unmount: function () {
+            unMount: function () {
                 var c = this.config;
 
                 if (c.$element) {
@@ -87,7 +76,7 @@ ui.module = $.extend(function (name, args) {
                 this.addInit(module.init.bind(module));
 
             },
-            isMounted: function ($html) {
+            isMount: function ($html) {
                 var c = this.config;
 
                 $html = !$html ? c.$element : $html;

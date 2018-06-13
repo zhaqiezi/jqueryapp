@@ -1,13 +1,13 @@
 ui.module('api').add('menu', {
     i18n: ui.i18n('zh', {
-        'api-ui': 'ui工具',
+        'api-ui': 'UI工具库',
     }),
     routerEnd: function (location) {
         var c = this.config;
         var s = this.state;
 
         if (location.module !== c.module) {
-            this.unmount();
+            this.unMount();
             return false;
         }
 

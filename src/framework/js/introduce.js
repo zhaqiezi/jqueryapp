@@ -91,6 +91,14 @@ ui.module('framework').add('introduce', {
         title: '/framework/introduce',
         path: '/framework/introduce',
     }),
+    routerEnd: function (location) {
+        if (location.pathname !== this.router.path) {
+            this.unMount();
+            return false;
+        }
+        this.html();
+        this.on();
+    },
     html: function () {
         var c = this.config;
 
@@ -103,7 +111,6 @@ ui.module('framework').add('introduce', {
     },
 
     on: function () {
-        var c = this.config;
 
 
     },

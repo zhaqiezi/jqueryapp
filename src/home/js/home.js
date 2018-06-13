@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 ui.module('home', {
     i18n: ui.i18n('zh', {
         'home': 'jQueryApp',
@@ -23,7 +23,6 @@ ui.module('home', {
             ],
         }
     },
-
     initEnd: function () {
         var c = this.config;
 
@@ -44,7 +43,6 @@ ui.module('home', {
         ui.router.go();
 
     },
-
     component: {
         module: function (html) {
 

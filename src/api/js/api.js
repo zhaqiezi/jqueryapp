@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 ui.module('api', {
     i18n: ui.i18n('zh', {
-        '/api': 'API',
+        '/api': 'API文档',
 
     }),
     router: ui.router({
@@ -18,7 +18,6 @@ ui.module('api', {
         ui.module('home.body').mount(c.$element);
     },
     on: function () {
-        var c = this.config;
 
 
     },
